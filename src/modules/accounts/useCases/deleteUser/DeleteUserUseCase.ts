@@ -17,7 +17,7 @@ class DeleteUserUseCase {
         const user = await this.userRepository.findById(id);
 
         if(!user) {
-          throw new AppError("User doesn't exists")
+          throw new AppError("User Auth doesn't Exists")
         }
 
         await this.userRepository.delete(id)

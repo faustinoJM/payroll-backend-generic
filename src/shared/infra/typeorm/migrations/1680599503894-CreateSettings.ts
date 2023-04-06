@@ -119,6 +119,7 @@ export class CreateSettings1680599503894 implements MigrationInterface {
           {
             name: "flag",
             type: "int",
+            isNullable: true,
           },
           {
             name: 'created_at',

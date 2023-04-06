@@ -19,7 +19,7 @@ class DeleteEmployeeUseCase {
         const user = await this.userRepository.findById(user_id)
 
       if (!user) {
-          throw new  AppError("User doesn't Exists")
+          throw new  AppError("User Auth doesn't Exists")
       }
         const employee = await this.employeeRepository.findById(id, user.company_id);
 

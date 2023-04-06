@@ -24,7 +24,7 @@ class UpdateUserUseCase {
     // }
 
     if(!user) {
-      throw new AppError("User doesn't exists")
+      throw new AppError("User Auth doesn't Exists")
     }
 
     // const passwordCHash = await hash(password, 8);

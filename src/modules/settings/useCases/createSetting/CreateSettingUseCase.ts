@@ -18,7 +18,7 @@ class CreateSettingUseCase {
         const user  = await this.userRepository.findById(data.user_id as any)
 
         if (!user) {
-          throw new AppError("User doesn't Exists")
+          throw new AppError("User Auth doesn't Exists")
         }
         
         const settingAlreadyExists = await this.settingRepository.findById(user.company_id as any);
@@ -53,7 +53,7 @@ class CreateSettingUseCase {
             // Case Setting doesn't Exists  create new
             data.company_id = user.company_id
             data.payroll_total_workdays_month = data.payroll_total_workdays_month ?? 26
-            data.payroll_total_workdays_month = data.payroll_total_workdays_month ?? 8
+            data.payroll_total_workhours_day = data.payroll_total_workhours_day ?? 8
             data.overtime = data.overtime ??  "true"
             data.absences = data.absences ?? "true"
             data.cash_advances = data.cash_advances ?? "true"

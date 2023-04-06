@@ -55,7 +55,7 @@ class OutputPayrollUseCase {
         const user = await this.userRepository.findById(user_id as any)
 
         if (!user) {
-          throw new  AppError("User doesn't Exists")
+          throw new  AppError("User Auth doesn't Exists")
         }
 
         const payrolls = await this.payrollRepository.list(user.company_id)

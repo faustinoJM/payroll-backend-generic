@@ -20,7 +20,7 @@ class CreateEmployeeUseCase {
         const user = await this.userRepository.findById(data.user_id as any)
 
         if (!user) {
-          throw new  AppError("User doesn't Exists")
+          throw new  AppError("User Auth doesn't Exists")
         }
         
         const employeeAlreadyExists = await this.employeeRepository.findByName(data.name, data.bi, user.company_id);

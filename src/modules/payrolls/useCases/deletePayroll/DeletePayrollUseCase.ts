@@ -19,7 +19,7 @@ class DeletePayrollUseCase {
         const user = await this.userRepository.findById(user_id as any)
 
         if (!user) {
-          throw new  AppError("User doesn't Exists")
+          throw new  AppError("User Auth doesn't Exists")
         }
 
         const allPayrolls = await this.payrollRepository.findAllByYearAndByMonth(year, month, user.company_id);
