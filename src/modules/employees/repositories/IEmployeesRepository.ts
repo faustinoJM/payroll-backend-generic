@@ -19,6 +19,8 @@ interface IEmployeesRepository {
     delete(id: string): Promise<void>
 
     list(company_id: string): Promise<Employee[]>;
+    listAll(): Promise<Employee[]>;
+
     
 }
 

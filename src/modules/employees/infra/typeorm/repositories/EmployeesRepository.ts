@@ -89,6 +89,12 @@ class EmployeesRepository implements IEmployeesRepository {
         return list;
     }
 
+    async listAll(): Promise<Employee[]> {
+      const list = await this.repository.find();
+
+      return list;
+  }
+
     async delete(id: string): Promise<void> {
       await this.repository.delete(id)
     }

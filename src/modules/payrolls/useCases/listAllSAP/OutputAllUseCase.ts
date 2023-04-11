@@ -33,7 +33,7 @@ export interface IPayrollDemo {
 }
 
 @injectable()
-class ListInputPayrollUseCase {
+class OutputAllUseCase {
 
     constructor(@inject("PayrollRepository")
         private payrollRepository: IPayrollRepository,
@@ -51,17 +51,17 @@ class ListInputPayrollUseCase {
         private departmentsRepository: IDepartmentsRepository
         ) {}
 
-    async execute(year: number, month: string, user_id: string) {
-        const user = await this.userRepository.findById(user_id as any)
+    async execute(year?: number, month?: string) {
+        // const user = await this.userRepository.findById(user_id as any)
 
-        if (!user) {
-          throw new  AppError("User Auth doesn't Exists")
-        }
+        // if (!user) {
+        //   throw new  AppError("User Auth doesn't Exists")
+        // }
 
-        const payrolls = await this.payrollRepository.list(user.company_id)
-        const employees = await this.employeeRepository.list(user.company_id);
-        const positions = await this.positionsRepository.list(user.company_id)
-        const departments = await this.departmentsRepository.list(user.company_id) 
+        const payrolls = await this.payrollRepository.listAll()
+        const employees = await this.employeeRepository.listAll();
+        const positions = await this.positionsRepository.listAll()
+        const departments = await this.departmentsRepository.listAll() 
         const listEmployeesPayrolls: ICreatePayrollDTO2[] = [];
         let payrolls2: Payroll[] = []
 
@@ -89,11 +89,8 @@ class ListInputPayrollUseCase {
 
         payrolls2.map((payroll) =>{
           const employee =  employees.find(employee => employee.id === payroll.employee_uid)
-          // console.log(employee)
-          // if(!employee) {
-          //   throw new AppError("Employee doesn exists")
-          // }
-         if(employee) {
+
+         if (employee) {
          let employeePayroll: ICreatePayrollDTO2 = {
             id: payroll.id,
             employee_uid: employee.id,
@@ -104,6 +101,7 @@ class ListInputPayrollUseCase {
             departament_name: departmentName(employee.department_id!)?.name,
             nib: employee.nib,
             social_security: employee.social_security,
+            nuit: employee.nuit,
             salary_base: payroll.salary_base, 
             salary_liquid: payroll.salary_liquid,
             month: payroll.month,
@@ -130,11 +128,49 @@ class ListInputPayrollUseCase {
             tabelaSalario: payroll.tabelaSalario,
             payrollDemo: payroll.payrollDemo
           };
-       
+      
           listEmployeesPayrolls.push(employeePayroll)
-        } else {
-          //employe doesn exist
-        }
+          } else {
+            //employe doesn exist
+            let employeePayroll: ICreatePayrollDTO2 = {
+              id: payroll.id,
+              employee_uid: null as any,
+              employee_id: null as any,
+              employee_name: payroll.employee_name,
+              dependents: payroll.dependents,
+              position_name: payroll.position_name,
+              departament_name: payroll.departament_name,
+              nib: payroll.nib,
+              social_security: payroll.social_security,
+              nuit: payroll.nuit,
+              salary_base: payroll.salary_base, 
+              salary_liquid: payroll.salary_liquid,
+              month: payroll.month,
+              year: payroll.year,
+              total_income: payroll.total_income ,
+              overtime50: payroll.overtime50,
+              overtime100: payroll.overtime100,
+              total_overtime: payroll.total_overtime,
+              month_total_workdays: payroll.month_total_workdays,
+              day_total_workhours: payroll.day_total_workhours,
+              base_day: payroll.base_day,
+              base_hour: payroll.base_hour,
+              absences: payroll.absences,
+              total_absences: payroll.total_absences as any,
+              cash_advances: payroll.cash_advances,
+              subsidy: payroll.subsidy,
+              bonus: payroll.bonus,
+              backpay: payroll.backpay,
+              irps: payroll.irps,
+              inss_employee: payroll.inss_employee,
+              inss_company: payroll.inss_company,
+              total_inss: +(payroll.inss_company) + (+payroll.inss_employee) as any,
+              tabelaSalario: payroll.tabelaSalario,
+              payrollDemo: payroll.payrollDemo
+            }
+            listEmployeesPayrolls.push(employeePayroll)
+
+          }
         })
 
         return listEmployeesPayrolls
@@ -142,4 +178,5 @@ class ListInputPayrollUseCase {
         // return payrolls
     }
 }
-export { ListInputPayrollUseCase }
+export { OutputAllUseCase }
+

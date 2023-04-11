@@ -7,6 +7,8 @@ import { SinglePayrollController } from "../../../../modules/payrolls/useCases/s
 import exceljs from "exceljs"
 import { ListInputPayrollController } from "../../../../modules/payrolls/useCases/ListInputPayroll/ListInputPayrollController";
 import ensureAuthenticated from "../middlewares/ensureAuthenticated";
+import { ImportExcelController } from "../../../../modules/payrolls/useCases/importExcel/ImportExcelController";
+import { OutputAllController } from "../../../../modules/payrolls/useCases/listAllSAP/OutputAllController";
 
 const payrollRouter = Router();
 const createPayrollController = new CreatePayrollController();
@@ -15,7 +17,10 @@ const outputPayrollController = new OutputPayrollController();
 const inputPayrollController = new InputPayrollController();
 const singlePayrollController = new SinglePayrollController()
 const deletePayrollController = new DeletePayrollController()
+const importExcelController = new ImportExcelController()
+const outputAllController = new OutputAllController()
 
+payrollRouter.get("/all", outputAllController.handle);
 payrollRouter.use(ensureAuthenticated)
 
 
@@ -25,30 +30,38 @@ payrollRouter.get("/input", listInputPayrollController.handle);
 payrollRouter.get("/:id", singlePayrollController.handle);
 payrollRouter.put("/:id", inputPayrollController.handle);
 payrollRouter.delete("/", deletePayrollController.handle)
+payrollRouter.post("/excel/import", importExcelController.handle)
 
-payrollRouter.post("/excel/import", (request, response) => {
-  const data = request.body
-  const dataArr: oop[] = []
-  const employee = {} as any;
 
-  data.map((d: any)=> {
-        Object.entries(keyToPropMap).forEach(([key, prop]) => {
-          if (d[key] !== undefined) {
-            if(prop === "birth_date" || prop === "start_date")
-                employee[prop] = new Date(Date.UTC(0, 0, d[key] - 1))  
-            else
-                employee[prop] = d[key];           
-          }
-        });
-        dataArr.push(
-          employee
-        )
-      })
+// payrollRouter.post("/excel/import", (request, response) => {
+//   const data = request.body
+//   const dataDepart: oop[] = []
+//   const dataPosition: oop[] = []
+//   const employee = {} as any;
+
+//   data.map((d: any)=> {
+//         Object.entries(keyToPropMap).forEach(([key, prop]) => {
+//           if (d[key] !== undefined) {
+//             if(prop === "birth_date" || prop === "start_date")
+//                 employee[prop] = new Date(Date.UTC(0, 0, d[key] - 1))  
+//             else
+//                 employee[prop] = d[key];           
+//           }
+//         });
+//         dataPosition.push(
+//           employee["position_id"]
+//         )
+//         dataDepart.push(
+//           employee["department_id"]
+//         )
+        
+//       })
     
 
-  console.log(dataArr)
-  response.status(201).json(data)
-})
+//   console.log(dataDepart)
+//   console.log(dataPosition)
+//   response.status(201).json(data)
+// })
 
 
 payrollRouter.get("/excel/export", (request, response) => {

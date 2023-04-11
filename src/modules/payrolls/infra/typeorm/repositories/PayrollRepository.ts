@@ -144,6 +144,13 @@ class PayrollRepository implements IPayrollRepository {
         return list;
     }
 
+    
+    async listAll(): Promise<Payroll[]> {
+      const list = await this.repository.find();
+
+      return list;
+  }
+
     async delete(id: string): Promise<void> {
       await this.repository.delete(id)
     }

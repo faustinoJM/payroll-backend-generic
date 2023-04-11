@@ -51,6 +51,12 @@ class PositionsRepository implements IPositionsRepository {
         return list;
   }
 
+  async listAll(): Promise<Position[] | []> {
+    const list = await this.ormRepository.find();
+
+        return list;
+  }
+
   async delete(id: string) {
     await this.ormRepository.delete(id)
   }

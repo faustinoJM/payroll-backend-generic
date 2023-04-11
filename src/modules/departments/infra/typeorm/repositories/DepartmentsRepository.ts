@@ -50,6 +50,12 @@ class DepartmentsRepository implements IDepartmentsRepository {
         return list;
   }
 
+  async listAll(): Promise<Department[] | []> {
+    const list = await this.ormRepository.find();
+
+        return list;
+  }
+
   async delete(id: string): Promise<void> {
     await this.ormRepository.delete(id)
   }

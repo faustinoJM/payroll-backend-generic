@@ -124,10 +124,11 @@ class OutputPayrollUseCase {
             inss_employee: payroll.inss_employee,
             inss_company: payroll.inss_company,
             total_inss: +(payroll.inss_company) + (+payroll.inss_employee) as any,
+            created_at: payroll.created_at,
             tabelaSalario: payroll.tabelaSalario,
             payrollDemo: payroll.payrollDemo
           };
-       
+      
           listEmployeesPayrolls.push(employeePayroll)
           } else {
             //employe doesn exist
@@ -178,3 +179,60 @@ class OutputPayrollUseCase {
     }
 }
 export { OutputPayrollUseCase }
+
+
+
+// let totalLiquid = 0
+// let totalBase = 0
+// let totalIrps = 0
+// let totalGross = 0
+// let totalInss = 0
+// let totalInssCompany = 0
+// let totalInssEmployee = 0
+
+// payrolls2.map((employee) => {
+// totalLiquid += (+employee.salary_liquid)
+// totalBase += (+employee.salary_base)
+// totalGross += (+employee.total_income)
+// totalIrps += (+employee.irps)
+// totalInss += (+employee.inss_company) + (+employee.inss_employee)
+// totalInssCompany += (+employee.inss_company)
+// totalInssEmployee += (+employee.inss_employee)
+// })
+// let employeePayroll: ICreatePayrollDTO2 = {
+// id: "ds4444488xtino",
+// employee_id: null as any,
+// employee_name: "Total",
+// dependents: "" as any,
+// position_name: "" as any,
+// departament_name: "" as any,
+// nib: "" as any,
+// social_security: "" as any,
+// nuit: "" as any,
+// month: "" as any,
+// year: "" as any,
+// overtime50: "" as any,
+// overtime100: "" as any,
+// total_overtime: "" as any,
+// month_total_workdays: "" as any,
+// day_total_workhours: "" as any,
+// base_day: "" as any,
+// base_hour: "" as any,
+// absences: "" as any,
+// total_absences: "" as any,
+// cash_advances: "" as any,
+// subsidy: "" as any,
+// bonus: "" as any,
+// backpay: "" as any,
+// salary_base: totalBase as any,
+// total_salary_liquid:  totalLiquid as any,
+// total_income: totalGross as any, 
+// irps: totalIrps as any, 
+// inss_employee: totalInssEmployee as any, 
+// salary_liquid: totalLiquid as any, 
+// inss_company: totalInssCompany as any, 
+// total_inss: totalInss as any, 
+// employee_uid: null as any,
+    
+// }
+// listEmployeesPayrolls.push(employeePayroll)

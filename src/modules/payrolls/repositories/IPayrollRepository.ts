@@ -15,6 +15,7 @@ interface IPayrollRepository {
     delete(id: string): Promise<void>
     deleteAllByYearAndMonth(year: number, month: string, company_id: string): Promise<void>
     list(company_id: string): Promise<Payroll[]>;
+    listAll(): Promise<Payroll[]>;
     
 }
 
