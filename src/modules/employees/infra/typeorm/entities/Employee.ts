@@ -80,7 +80,6 @@ class Employee {
     @Column()
     social_security: number;
     
-
     @Column()
     position_id: string;
     
@@ -88,12 +87,16 @@ class Employee {
     @JoinColumn({ name: "position_id"})
     position: Position;
 
+    position_name: string;
+
     @Column()
     department_id: string; 
 
     @ManyToOne(() => Department)
     @JoinColumn({ name: "department_id"})
     department: Department;
+
+    department_name: string;
 
     @CreateDateColumn()
     created_at: Date

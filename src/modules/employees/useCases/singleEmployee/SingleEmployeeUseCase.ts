@@ -40,8 +40,8 @@ class SingleEmployeeUseCase {
         const position = await this.positionRepository.findById(employee.position_id)
         const department = await this.departmentRepository.findById(employee.department_id)
        
-        employee.position_id ? employee.position_id = position?.name! : ""
-        employee.department_id ? employee.department_id = department?.name! : ""
+        employee.position_id ? employee.position_name = position?.name! : ""
+        employee.department_id ? employee.department_name = department?.name! : ""
        
         return employee;
 
