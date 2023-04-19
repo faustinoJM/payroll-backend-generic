@@ -63,6 +63,7 @@ export class CreateEmployee1680599423740 implements MigrationInterface {
           {
             name: "gender",
             type: "varchar",
+            // isNullable: true
           },
           {
             name: "address",
