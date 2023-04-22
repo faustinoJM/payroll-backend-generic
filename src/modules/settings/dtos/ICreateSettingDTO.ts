@@ -23,7 +23,11 @@ export default interface ICreateSettingDTO {
   flag?: number;
   user_id?: string;
   company_id?: string;
+  syndicate_status?: string;
+  syndicate_tax?: number;
+  company_logo_name?: string;
 }
+
 
 
 // "company_name"

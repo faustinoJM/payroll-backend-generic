@@ -48,6 +48,8 @@ class CreateSettingUseCase {
               bonus: data.bonus,
               backpay: data.backpay,
               subsidy: data.subsidy,
+              syndicate_status: data.syndicate_status,
+              syndicate_tax: data.syndicate_tax,
             });
         } else {
             // Case Setting doesn't Exists  create new
@@ -60,6 +62,8 @@ class CreateSettingUseCase {
             data.bonus = data.bonus ?? "true"
             data.backpay = data.backpay ?? "true"
             data.subsidy = data.subsidy ?? "true"
+            data.syndicate_status = data.syndicate_status ?? "true"
+            data.syndicate_tax = data.syndicate_tax ?? 1
           await this.settingRepository.create(data);
         }
 

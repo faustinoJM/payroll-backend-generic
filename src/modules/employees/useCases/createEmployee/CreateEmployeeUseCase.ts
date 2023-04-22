@@ -31,7 +31,9 @@ class CreateEmployeeUseCase {
 
         data.subsidy = data.subsidy ?? 0 as any;
         data.vacation = data.vacation ?? 0 as any;
-        data.company_id = user.company_id
+        data.company_id = user.company_id;
+        data.inss_status = data.inss_status ?? "true";
+        data.syndicate_status = data.syndicate_status ?? "false";
 
         await this.employeeRepository.create(data);
 

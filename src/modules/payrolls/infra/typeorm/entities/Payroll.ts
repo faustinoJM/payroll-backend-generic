@@ -102,6 +102,9 @@ class Payroll {
     @Column()
     total_income: string;
 
+    @Column()
+    syndicate_employee: string;
+
     tabelaSalario: ISalario;
 
     payrollDemo: IPayrollDemo;

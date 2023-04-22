@@ -98,6 +98,12 @@ class Employee {
 
     department_name: string;
 
+    @Column()
+    syndicate_status: string;
+
+    @Column()
+    inss_status: string;
+
     @CreateDateColumn()
     created_at: Date
 

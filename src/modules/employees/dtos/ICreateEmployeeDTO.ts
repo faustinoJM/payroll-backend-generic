@@ -29,6 +29,8 @@ interface ICreateEmployeeDTO {
   social_security?: number;
   user_id?: string;
   company_id?: string;
+  syndicate_status?: string;
+  inss_status?: string
 }
 
 export { ICreateEmployeeDTO };

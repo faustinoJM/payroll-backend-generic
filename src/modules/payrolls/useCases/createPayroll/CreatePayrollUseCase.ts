@@ -82,6 +82,7 @@ class CreatePayrollUseCase {
 
         const month_total_workdays = settings?.payroll_total_workdays_month ?? 26;
         const day_total_workhours = settings?.payroll_total_workhours_day ?? 8;
+        const syndicate_tax = settings?.syndicate_tax ?? 1;
        
 
         console.log("150", month_total_workdays)
@@ -109,9 +110,10 @@ class CreatePayrollUseCase {
           let total_absences = calcTotalFaltas(absences!, base_day)
           let total_income = +calcTotalSalarioBruto(+employee.salary, total_overtime!, total_absences, +backpay!, +bonus, +employee.subsidy!).toFixed(2)
           let IRPS = retornarIRPS(+total_income!, employee.dependents) 
-          let INSS_Employee = retornarINSS(+total_income!)
+          let INSS_Employee = retornarINSS(+total_income!, employee.inss_status)
           let INSS_Company = retornarINSS_Company(total_income)
-          let salary_liquid = calcularSalarioLiquido(+total_income!, IRPS, INSS_Employee, +cash_advances!)
+          let syndicate_employee = retornarSyndicate_Tax(total_income, syndicate_tax, employee.syndicate_status)
+          let salary_liquid = calcularSalarioLiquido(+total_income!, IRPS, INSS_Employee, +cash_advances!, syndicate_employee)
           // console.log(parseFloat(employee.salary).toFixed(2))
           
          let employeePayroll: ICreatePayrollDTO2 = {
@@ -143,8 +145,9 @@ class CreatePayrollUseCase {
             bonus: bonus as any,
             backpay: backpay as any,
             irps: IRPS as any,
-            inss_employee: retornarINSS(total_income) as any,
+            inss_employee: INSS_Employee as any,
             inss_company: INSS_Company as any,
+            syndicate_employee: syndicate_employee as any,
             tabelaSalario: retornarTabela(+total_income!, employee.dependents),
             payrollDemo: retornarPayrollDemo(+employee.salary, overtime50,
                overtime100, month_total_workdays, day_total_workhours, absences,
@@ -207,12 +210,18 @@ function retornarIRPS(salary: number, dependents: number) {
   
   return impostoPagarIRPS;
 }
-function retornarINSS(salary: number) {
-  return salary * 0.03;
+function retornarINSS(salary: number, inss_status: string) {
+  return inss_status ==="true" ? salary * 0.03 : 0;
 }
 
 function retornarINSS_Company(salary: number) {
   return salary * 0.04;
+}
+
+function retornarSyndicate_Tax(salary: number, syndicate_tax: number, syndicate_status: string) {
+  syndicate_tax = syndicate_tax / 100;
+
+  return syndicate_status === "true" ? salary * syndicate_tax : 0
 }
 
 function retornarPayrollDemo(salary_base: number,  overtime50?: number,
@@ -440,8 +449,8 @@ function calcTotalSalarioBruto(salario_base: number, totalHorasExtras: number,
   return salario_base + totalHorasExtras - totalDescontoFaltas + totalRetroativos + bonus + subsidio;
 }
 
-function calcularSalarioLiquido(totalSalario: number, IRPS: number, INSS_Employee: number, totalAdiantamento: number) {
-  return totalSalario - IRPS - INSS_Employee - totalAdiantamento;
+function calcularSalarioLiquido(totalSalario: number, IRPS: number, INSS_Employee: number, totalAdiantamento: number, syndicate_employee: number) {
+  return totalSalario - IRPS - INSS_Employee - totalAdiantamento - syndicate_employee;
 }
 
 

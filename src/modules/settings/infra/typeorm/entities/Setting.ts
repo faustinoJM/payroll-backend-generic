@@ -71,6 +71,15 @@ class Setting {
 
   @Column()
   flag: number;
+  
+  @Column()
+  syndicate_status: string;
+
+  @Column()
+  syndicate_tax: number;
+
+  @Column()
+  company_logo_name: string;
 
   @CreateDateColumn()
   created_at: Date;

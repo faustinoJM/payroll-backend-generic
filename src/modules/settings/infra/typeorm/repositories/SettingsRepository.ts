@@ -33,7 +33,10 @@ class SettingsRepository implements ISettingRepository {
     cash_advances,
     bonus,
     backpay,
-    subsidy,flag }: ICreateSettingDTO): Promise<Setting> {
+    subsidy,flag ,
+    syndicate_status,
+    syndicate_tax,
+    company_logo_name}: ICreateSettingDTO): Promise<Setting> {
 
       const setting = this.ormRepository.create({
             id,
@@ -57,7 +60,10 @@ class SettingsRepository implements ISettingRepository {
             cash_advances,
             bonus,
             backpay,
-            subsidy,flag
+            subsidy,flag,
+            syndicate_status,
+            syndicate_tax,
+            company_logo_name
       })
 
       await this.ormRepository.save(setting);

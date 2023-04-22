@@ -41,7 +41,8 @@ class PayrollRepository implements IPayrollRepository {
       irps,
       inss_employee,
       inss_company,
-      total_income}: ICreatePayrollDTO2): Promise<void> {
+      total_income,
+      syndicate_employee}: ICreatePayrollDTO2): Promise<void> {
         const payroll =  this.repository.create({
           id,
           company_id,
@@ -73,7 +74,8 @@ class PayrollRepository implements IPayrollRepository {
           irps,
           inss_employee,
           inss_company,
-          total_income
+          total_income,
+          syndicate_employee
         });
         
         await this.repository.save(payroll);

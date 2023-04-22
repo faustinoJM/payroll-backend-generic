@@ -43,6 +43,7 @@ interface ICreatePayrollDTO2 {
   inss_employee?: string;
   inss_company?: string;
   total_income?: string;
+  syndicate_employee?: string;
   tabelaSalario?: ISalario;
   payrollDemo?: IPayrollDemo;
 }
@@ -121,6 +122,7 @@ class SinglePayrollUseCase {
             irps: payroll.irps,
             inss_employee: payroll.inss_employee,
             inss_company: payroll.inss_company,
+            syndicate_employee: payroll.syndicate_employee,
             tabelaSalario: payroll.tabelaSalario,
             payrollDemo: payroll.payrollDemo
           };
@@ -162,6 +164,7 @@ class SinglePayrollUseCase {
           irps: payroll.irps,
           inss_employee: payroll.inss_employee,
           inss_company: payroll.inss_company,
+          syndicate_employee: payroll.syndicate_employee,
           tabelaSalario: payroll.tabelaSalario,
           payrollDemo: payroll.payrollDemo
         };

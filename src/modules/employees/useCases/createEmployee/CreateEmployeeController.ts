@@ -27,7 +27,8 @@ class CreateEmployeeController {
           bank_name,
           bank_account,
           nib,
-          social_security,} = request.body;
+          social_security,
+          syndicate_status, inss_status} = request.body;
 
 
         const createEmployeeUseCase = container.resolve(CreateEmployeeUseCase);
@@ -52,7 +53,8 @@ class CreateEmployeeController {
           bank_name,
           bank_account,
           nib,
-          social_security,})
+          social_security,
+          syndicate_status, inss_status})
 
         return response.status(201).send();
     }

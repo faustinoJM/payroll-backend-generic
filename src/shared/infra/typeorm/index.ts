@@ -11,14 +11,14 @@ import Setting from "../../../modules/settings/infra/typeorm/entities/Setting"
 
 const options:  any = {
     type: "postgres",
-    host: "localhost",
-    port: 5432,
-    username: "postgres",
-    password: "12345",
-    database: "payroll_single",
+    // host: "localhost",
+    // port: 5432,
+    // username: "postgres",
+    // password: "12345",
+    // database: "payroll_single2",
     // url: "postgres://jhkdfoxm:q_zM2AjeX07zyuWXgCpRLLEMxnX3b-v0@raja.db.elephantsql.com/jhkdfoxm",
-    // url: "postgres://elint:uYQvjaysQl0dhEvkcUj8Gxe1p8jsMTLD@dpg-cgj809mbb6mo06k1h0rg-a.oregon-postgres.render.com/payroll_render?ssl=true",
-    // url: "postgres://pkwqfmrt:Jag1KJ8Ug_qwj79XtDoq8pTLQlcNHV9k@babar.db.elephantsql.com/pkwqfmrt", 
+    url: "postgres://elint:uYQvjaysQl0dhEvkcUj8Gxe1p8jsMTLD@dpg-cgj809mbb6mo06k1h0rg-a.oregon-postgres.render.com/payroll_render?ssl=true",
+    // url: "postgres://postgres:12345678@payroll-aws.chtitsruotfr.eu-north-1.rds.amazonaws.com/payroll_aws_db", 
     logging: true,
     synchronize: false,
     entities: [

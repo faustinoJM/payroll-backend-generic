@@ -27,7 +27,10 @@ class CreateSettingController {
           cash_advances,
           bonus,
           backpay,
-          subsidy, flag
+          subsidy, flag,
+          syndicate_status,
+          syndicate_tax,
+          company_logo_name
         } = request.body;
 
 
@@ -54,7 +57,10 @@ class CreateSettingController {
           cash_advances,
           bonus,
           backpay,
-          subsidy,flag
+          subsidy,flag,
+          syndicate_status,
+          syndicate_tax,
+          company_logo_name
          })
 
         return response.status(201).send();

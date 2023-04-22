@@ -31,7 +31,8 @@ class EmployeesRepository implements IEmployeesRepository {
       bank_name,
       bank_account,
       nib,
-      social_security,}: ICreateEmployeeDTO): Promise<void> {
+      social_security,
+      syndicate_status, inss_status}: ICreateEmployeeDTO): Promise<void> {
         const user =  this.repository.create({
             id, company_id, employee_id, name, salary, dependents, position_id, department_id, birth_date,
             place_birth,
@@ -52,7 +53,7 @@ class EmployeesRepository implements IEmployeesRepository {
             bank_account,
             nib,
             social_security,
-     
+            syndicate_status, inss_status
         });
         
         await this.repository.save(user);
