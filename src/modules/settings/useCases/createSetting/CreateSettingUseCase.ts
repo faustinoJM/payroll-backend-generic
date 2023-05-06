@@ -40,30 +40,33 @@ class CreateSettingUseCase {
               postal_code: data.postal_code,
               company_country: data.company_country,
               company_avatar: data.company_avatar,
-              payroll_total_workdays_month: data.payroll_total_workdays_month,
-              payroll_total_workhours_day: data.payroll_total_workhours_day,
-              overtime: data.overtime,
-              absences: data.absences,
-              cash_advances: data.cash_advances,
-              bonus: data.bonus,
-              backpay: data.backpay,
-              subsidy: data.subsidy,
+              company_logo_name: data.company_logo_name,
+              payroll_month_total_workdays: data.payroll_month_total_workdays,
+              payroll_day_total_workhours: data.payroll_day_total_workhours,
+              overtime_status: data.overtime_status,
+              absences_status: data.absences_status,
+              cash_advances_status: data.cash_advances_status,
+              bonus_status: data.bonus_status,
+              backpay_status: data.backpay_status,
+              subsidy_status: data.subsidy_status,
               syndicate_status: data.syndicate_status,
-              syndicate_tax: data.syndicate_tax,
+              payroll_syndicate_tax: data.payroll_syndicate_tax,
+              // payroll_inss_employee_tax: data.payroll_inss_employee_tax,
+              // payroll_inss_company_tax: data.payroll_inss_company_tax
             });
         } else {
             // Case Setting doesn't Exists  create new
             data.company_id = user.company_id
-            data.payroll_total_workdays_month = data.payroll_total_workdays_month ?? 26
-            data.payroll_total_workhours_day = data.payroll_total_workhours_day ?? 8
-            data.overtime = data.overtime ??  "true"
-            data.absences = data.absences ?? "true"
-            data.cash_advances = data.cash_advances ?? "true"
-            data.bonus = data.bonus ?? "true"
-            data.backpay = data.backpay ?? "true"
-            data.subsidy = data.subsidy ?? "true"
+            data.payroll_month_total_workdays = data.payroll_month_total_workdays ?? 30
+            data.payroll_day_total_workhours = data.payroll_day_total_workhours ?? 8
+            data.overtime_status = data.overtime_status ??  "true"
+            data.absences_status = data.absences_status ?? "true"
+            data.cash_advances_status = data.cash_advances_status ?? "true"
+            data.bonus_status = data.bonus_status ?? "true"
+            data.backpay_status = data.backpay_status ?? "true"
+            data.subsidy_status = data.subsidy_status ?? "true"
             data.syndicate_status = data.syndicate_status ?? "true"
-            data.syndicate_tax = data.syndicate_tax ?? 1
+            data.payroll_syndicate_tax = data.payroll_syndicate_tax ?? 1
           await this.settingRepository.create(data);
         }
 

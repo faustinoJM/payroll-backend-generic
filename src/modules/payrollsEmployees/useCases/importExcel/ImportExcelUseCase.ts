@@ -2,7 +2,6 @@ import { container, inject, injectable } from "tsyringe";
 import AppError  from "../../../../shared/errors/AppError";
 import IPositionsRepository from "../../../positions/repositories/IPositionsRepository";
 import IDepartmentsRepository from "../../../departments/repositories/IDepartmentsRepository";
-import { IPayrollRepository } from "../../repositories/IPayrollRepository";
 import { IEmployeesRepository } from "../../../employees/repositories/IEmployeesRepository";
 import { IUsersRepository } from "../../../accounts/repositories/IUsersRepository";
 import { response } from "express";
@@ -93,9 +92,7 @@ interface INameBi {
 @injectable()
 class ImportExcelUseCase {
 
-    constructor(@inject("PayrollRepository")
-        private payrollRepository: IPayrollRepository,
-
+    constructor(
         @inject("UsersRepository")
         private userRepository: IUsersRepository,
       

@@ -77,42 +77,120 @@ export class CreateSettings1680599503894 implements MigrationInterface {
             isNullable: true,
           },
           {
-            name: "payroll_total_workdays_month",
+            name: "company_logo_name",
+            type: "varchar",
+            isNullable: true,
+          },
+          {
+            name: 'company_nuit',
+            type: 'bigint',
+            isUnique: true
+          },
+          {
+            name: "company_bank_name",
+            type: "varchar",
+            isNullable: true
+          },
+          {
+            name: "company_bank_account",
+            type: "bigint",
+            isNullable: true
+          },
+          {
+            name: "payroll_month_total_workdays",
             type: "int",
             isNullable: true,
           },
           {
-            name: "payroll_total_workhours_day",
+            name: "payroll_day_total_workhours",
             type: "int",
             isNullable: true,
           },
           {
-            name: "overtime",
+            name: "payroll_syndicate_tax",
+            type: "int",
+            isNullable: true,
+          },
+          {
+            name: "payroll_inss_employee_tax",
+            type: "int",
+            isNullable: true,
+          },
+          {
+            name: "payroll_inss_company_tax",
+            type: "int",
+            isNullable: true,
+          },
+          {
+            name: "column_position_name",
+            type: "varchar",
+          },
+          {
+            name: "column_departament_name",
+            type: "varchar",
+          },
+          {
+            name: "column_overtime_status",
             type: "varchar",
             isNullable: true,
           },
           {
-            name: "absences",
+            name: "column_absences_status",
             type: "varchar",
             isNullable: true,
           },
           {
-            name: "cash_advances",
+            name: "column_cash_advances_status",
             type: "varchar",
             isNullable: true,
           },
           {
-            name: "backpay",
+            name: "column_backpay_status",
             type: "varchar",
             isNullable: true,
           },
           {
-            name: "bonus",
+            name: "column_bonus_status",
             type: "varchar",
             isNullable: true,
           },
           {
-            name: "subsidy",
+            name: "column_subsidy_status",
+            type: "varchar",
+            isNullable: true,
+          },
+          {
+            name: "column_syndicate_status",
+            type: "varchar",
+            isNullable: true,
+          },
+          {
+            name: "column_subsidy_transport",
+            type: "varchar",
+            isNullable: true,
+          },
+          {
+            name: "column_subsidy_food",
+            type: "varchar",
+            isNullable: true,
+          },
+          {
+            name: "column_subsidy_residence",
+            type: "varchar",
+            isNullable: true,
+          },
+          {
+            name: "column_subsidy_medical",
+            type: "varchar",
+            isNullable: true,
+          }, 
+          {
+            name: "column_subsidy_vacation",
+            type: "varchar",
+            isNullable: true,
+          }, 
+          {
+            name: "column_salary_thirteenth",
             type: "varchar",
             isNullable: true,
           },

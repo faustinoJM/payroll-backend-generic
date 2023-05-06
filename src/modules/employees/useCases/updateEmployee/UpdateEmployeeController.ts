@@ -6,7 +6,7 @@ class UpdateEmployeeController {
   async handle(request: Request, response: Response) {
     const user_id = request.user?.id;
 
-    const {employee_id, name, dependents, salary, position_id, department_id, birth_date, 
+    const {employee_number, name, dependents, salary, position_id, department_id, birth_date, 
       place_birth,
       nationality,
       bi,
@@ -32,7 +32,7 @@ class UpdateEmployeeController {
 
     const updateEmployeeUseCase = container.resolve(UpdateEmployeeUseCase)
 
-    const employee = await updateEmployeeUseCase.execute({id, user_id, employee_id, name, dependents, salary, position_id, department_id, birth_date, 
+    const employee = await updateEmployeeUseCase.execute({id, user_id, employee_number, name, dependents, salary, position_id, department_id, birth_date, 
       place_birth,
       nationality,
       bi,

@@ -7,7 +7,7 @@ class CreateEmployeeController {
     async handle(request: Request, response: Response) {
         const user_id = request.user?.id;
 
-        const { employee_id, name, dependents, salary, position_id, department_id, birth_date,
+        const { employee_number, name, dependents, salary, position_id, department_id, birth_date,
           place_birth,
           nationality,
           bi,
@@ -20,6 +20,12 @@ class CreateEmployeeController {
           nuit,
           vacation,
           subsidy,
+          subsidy_transport,
+          subsidy_food,
+          subsidy_residence,
+          subsidy_medical,
+          subsidy_vacation,
+          salary_thirteenth,
           department,
           position,
           start_date,
@@ -33,7 +39,7 @@ class CreateEmployeeController {
 
         const createEmployeeUseCase = container.resolve(CreateEmployeeUseCase);
 
-        await createEmployeeUseCase.execute({user_id, employee_id, name, dependents, salary, position_id, department_id, birth_date,
+        await createEmployeeUseCase.execute({user_id, employee_number, name, dependents, salary, position_id, department_id, birth_date,
           place_birth,
           nationality,
           bi,
@@ -46,6 +52,12 @@ class CreateEmployeeController {
           nuit,
           vacation,
           subsidy,
+          subsidy_transport,
+          subsidy_food,
+          subsidy_residence,
+          subsidy_medical,
+          subsidy_vacation,
+          salary_thirteenth,
           department,
           position,
           start_date,
@@ -61,3 +73,7 @@ class CreateEmployeeController {
 }
 
 export { CreateEmployeeController }
+
+
+
+

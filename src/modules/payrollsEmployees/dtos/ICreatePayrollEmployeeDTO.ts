@@ -1,9 +1,10 @@
-import { IPayrollDemo, ISalario } from "../useCases/createPayroll/CreatePayrollUseCase";
+import { IPayrollDemo, ISalario } from "../useCases/createPayroll/CreatePayrollEmployeeUseCase";
 
 
-interface ICreatePayrollDTO2 {
+interface ICreatePayrollEmployeeDTO {
   id?: string;
   employee_id?: string;
+  payroll_id?: string;
   employee_number?: number;
   employee_name?: string;
   dependents?: number;
@@ -29,6 +30,12 @@ interface ICreatePayrollDTO2 {
   backpay?: string;
   bonus?: string;
   subsidy?: string;
+  subsidy_transport?: string;
+  subsidy_food?: string;
+  subsidy_residence?: string;
+  subsidy_medical?: string;
+  subsidy_vacation?: string;
+  salary_thirteenth?: string;
   irps?:  string;
   inss_employee?: string;
   inss_company?: string;
@@ -49,4 +56,11 @@ interface ICreatePayrollDTO2 {
   payrollDemo?: IPayrollDemo;
 }
 
-export { ICreatePayrollDTO2 };
+export { ICreatePayrollEmployeeDTO };
+
+// "subsidy_transport"
+// "subsidy_food"
+// "subsidy_residence"
+// "subsidy_medical"
+// "subsidy_vacation"
+// "salary_thirteenth"

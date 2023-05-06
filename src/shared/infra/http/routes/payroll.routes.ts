@@ -1,34 +1,37 @@
 import { Router } from "express";
 import { CreatePayrollController } from "../../../../modules/payrolls/useCases/createPayroll/CreatePayrollController";
 import { DeletePayrollController } from "../../../../modules/payrolls/useCases/deletePayroll/DeletePayrollController";
-import { InputPayrollController } from "../../../../modules/payrolls/useCases/inputPayroll/InputPayrollController";
-import { OutputPayrollController } from "../../../../modules/payrolls/useCases/ListOutputPayroll/OutputPayrollController";
+// import { InputPayrollController } from "../../../../modules/payrolls/useCases/inputPayroll/InputPayrollController";
+// import { OutputPayrollController } from "../../../../modules/payrolls/useCases/ListOutputPayroll/OutputPayrollController";
 import { SinglePayrollController } from "../../../../modules/payrolls/useCases/singlePayroll/SinglePayrollController";
 import exceljs from "exceljs"
-import { ListInputPayrollController } from "../../../../modules/payrolls/useCases/ListInputPayroll/ListInputPayrollController";
+// import { ListInputPayrollController } from "../../../../modules/payrolls/useCases/ListInputPayroll/ListInputPayrollController";
 import ensureAuthenticated from "../middlewares/ensureAuthenticated";
 import { ImportExcelController } from "../../../../modules/payrolls/useCases/importExcel/ImportExcelController";
-import { OutputAllController } from "../../../../modules/payrolls/useCases/listAllSAP/OutputAllController";
+import { ListAllPayrollController } from "../../../../modules/payrolls/useCases/listAllPayroll/ListAllPayrollController";
+// import { OutputAllController } from "../../../../modules/payrolls/useCases/listAllSAP/OutputAllController";
 
 const payrollRouter = Router();
 const createPayrollController = new CreatePayrollController();
-const listInputPayrollController = new ListInputPayrollController()
-const outputPayrollController = new OutputPayrollController();
-const inputPayrollController = new InputPayrollController();
+// const listInputPayrollController = new ListInputPayrollController()
+// const outputPayrollController = new OutputPayrollController();
+// const inputPayrollController = new InputPayrollController();
 const singlePayrollController = new SinglePayrollController()
 const deletePayrollController = new DeletePayrollController()
 const importExcelController = new ImportExcelController()
-const outputAllController = new OutputAllController()
+// const outputAllController = new OutputAllController()
+const listAllPayrollController = new ListAllPayrollController()
 
-payrollRouter.get("/all", outputAllController.handle);
+// payrollRouter.get("/all", outputAllController.handle);
 payrollRouter.use(ensureAuthenticated)
 
+payrollRouter.get("/", listAllPayrollController.handle);
 
 payrollRouter.post("/", createPayrollController.handle);
-payrollRouter.get("/", outputPayrollController.handle);
-payrollRouter.get("/input", listInputPayrollController.handle);
+// payrollRouter.get("/", outputPayrollController.handle);
+// payrollRouter.get("/input", listInputPayrollController.handle);
 payrollRouter.get("/:id", singlePayrollController.handle);
-payrollRouter.put("/:id", inputPayrollController.handle);
+// payrollRouter.put("/:id", inputPayrollController.handle);
 payrollRouter.delete("/", deletePayrollController.handle)
 payrollRouter.post("/excel/import", importExcelController.handle)
 

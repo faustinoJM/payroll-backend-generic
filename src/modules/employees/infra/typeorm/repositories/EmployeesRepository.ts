@@ -11,7 +11,7 @@ class EmployeesRepository implements IEmployeesRepository {
         this.repository = AppDataSource.getRepository(Employee);
     }
     
-    async create({ id, company_id, employee_id, name, dependents, salary, position_id, department_id, birth_date, 
+    async create({ id, company_id, employee_number, name, dependents, salary, position_id, department_id, birth_date, 
       place_birth,
       nationality,
       bi,
@@ -24,6 +24,12 @@ class EmployeesRepository implements IEmployeesRepository {
       nuit,
       vacation,
       subsidy,
+      subsidy_transport,
+      subsidy_food,
+      subsidy_residence,
+      subsidy_medical,
+      subsidy_vacation,
+      salary_thirteenth,
       department,
       position,
       start_date,
@@ -34,7 +40,7 @@ class EmployeesRepository implements IEmployeesRepository {
       social_security,
       syndicate_status, inss_status}: ICreateEmployeeDTO): Promise<void> {
         const user =  this.repository.create({
-            id, company_id, employee_id, name, salary, dependents, position_id, department_id, birth_date,
+            id, company_id, employee_number, name, salary, dependents, position_id, department_id, birth_date,
             place_birth,
             nationality,
             bi,
@@ -47,6 +53,12 @@ class EmployeesRepository implements IEmployeesRepository {
             nuit,
             vacation,
             subsidy,
+            subsidy_transport,
+            subsidy_food,
+            subsidy_residence,
+            subsidy_medical,
+            subsidy_vacation,
+            salary_thirteenth,
             start_date,
             employee_status,
             bank_name,
@@ -66,9 +78,9 @@ class EmployeesRepository implements IEmployeesRepository {
         return user;
     }
     
-    // async findByEmployeeId(employee_id: number): Promise<Employee | null> {
+    // async findByEmployeeId(employee_number: number): Promise<Employee | null> {
     //     const user = await this.repository.findOne({ 
-    //       where: { employee_id }
+    //       where: { employee_number }
     //      });
 
     //     return user;

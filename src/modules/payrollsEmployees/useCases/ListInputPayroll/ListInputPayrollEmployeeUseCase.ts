@@ -3,10 +3,11 @@ import AppError  from "../../../../shared/errors/AppError";
 import { IEmployeesRepository } from "../../../employees/repositories/IEmployeesRepository";
 import IPositionsRepository from "../../../positions/repositories/IPositionsRepository";
 import IDepartmentsRepository from "../../../departments/repositories/IDepartmentsRepository";
-import { ICreatePayrollDTO2 } from "../../dtos/ICreatePayrollDTO2";
-import { IPayrollRepository } from "../../repositories/IPayrollRepository";
-import { Payroll } from "../../infra/typeorm/entities/Payroll";
 import { IUsersRepository } from "../../../accounts/repositories/IUsersRepository";
+import { IPayrollRepository } from "../../../payrolls/repositories/IPayrollRepository";
+import { IPayrollEmployeeRepository } from "../../repositories/IPayrollEmployeeRepository";
+import { ICreatePayrollEmployeeDTO } from "../../dtos/ICreatePayrollEmployeeDTO";
+import { PayrollEmployee } from "../../infra/typeorm/entities/PayrollEmployee";
 
 export interface ISalario {
   salarioLiquido?: number;
@@ -33,10 +34,13 @@ export interface IPayrollDemo {
 }
 
 @injectable()
-class OutputAllUseCase {
+class ListInputPayrollEmployeeUseCase {
 
     constructor(@inject("PayrollRepository")
         private payrollRepository: IPayrollRepository,
+
+        @inject("PayrollEmployeeRepository")
+        private payrollEmployeeRepository: IPayrollEmployeeRepository,
 
         @inject("UsersRepository")
         private userRepository: IUsersRepository,
@@ -51,19 +55,19 @@ class OutputAllUseCase {
         private departmentsRepository: IDepartmentsRepository
         ) {}
 
-    async execute(year?: number, month?: string) {
-        // const user = await this.userRepository.findById(user_id as any)
+    async execute(year: number, month: string, user_id: string) {
+        const user = await this.userRepository.findById(user_id as any)
 
-        // if (!user) {
-        //   throw new  AppError("User Auth doesn't Exists")
-        // }
+        if (!user) {
+          throw new  AppError("User Auth doesn't Exists")
+        }
 
-        const payrolls = await this.payrollRepository.listAll()
-        const employees = await this.employeeRepository.listAll();
-        const positions = await this.positionsRepository.listAll()
-        const departments = await this.departmentsRepository.listAll() 
-        const listEmployeesPayrolls: ICreatePayrollDTO2[] = [];
-        let payrolls2: Payroll[] = []
+        const payrolls = await this.payrollEmployeeRepository.list(user.company_id)
+        const employees = await this.employeeRepository.list(user.company_id);
+        const positions = await this.positionsRepository.list(user.company_id)
+        const departments = await this.departmentsRepository.list(user.company_id) 
+        const listEmployeesPayrolls: ICreatePayrollEmployeeDTO[] = [];
+        let payrolls2: PayrollEmployee[] = []
 
         function positionName(positionId: string) {
           return positions.find((position) => position.id === positionId)
@@ -88,20 +92,22 @@ class OutputAllUseCase {
         }
 
         payrolls2.map((payroll) =>{
-          const employee =  employees.find(employee => employee.id === payroll.employee_uid)
-
-         if (employee) {
-         let employeePayroll: ICreatePayrollDTO2 = {
+          const employee =  employees.find(employee => employee.id === payroll.employee_id)
+          // console.log(employee)
+          // if(!employee) {
+          //   throw new AppError("Employee doesn exists")
+          // }
+         if(employee) {
+         let employeePayroll: ICreatePayrollEmployeeDTO = {
             id: payroll.id,
-            employee_uid: employee.id,
-            employee_id: employee.employee_id,
+            employee_id: employee.id,
+            employee_number: employee.employee_number,
             employee_name: employee.name,
             dependents: employee.dependents,
             position_name: positionName(employee.position_id!)?.name,
             departament_name: departmentName(employee.department_id!)?.name,
             nib: employee.nib,
             social_security: employee.social_security,
-            nuit: employee.nuit,
             salary_base: payroll.salary_base, 
             salary_liquid: payroll.salary_liquid,
             month: payroll.month,
@@ -123,54 +129,16 @@ class OutputAllUseCase {
             irps: payroll.irps,
             inss_employee: payroll.inss_employee,
             inss_company: payroll.inss_company,
+            syndicate_employee: payroll.syndicate_employee,
             total_inss: +(payroll.inss_company) + (+payroll.inss_employee) as any,
             created_at: payroll.created_at,
-            tabelaSalario: payroll.tabelaSalario,
-            payrollDemo: payroll.payrollDemo
+            
           };
-      
+       
           listEmployeesPayrolls.push(employeePayroll)
-          } else {
-            //employe doesn exist
-            let employeePayroll: ICreatePayrollDTO2 = {
-              id: payroll.id,
-              employee_uid: null as any,
-              employee_id: null as any,
-              employee_name: payroll.employee_name,
-              dependents: payroll.dependents,
-              position_name: payroll.position_name,
-              departament_name: payroll.departament_name,
-              nib: payroll.nib,
-              social_security: payroll.social_security,
-              nuit: payroll.nuit,
-              salary_base: payroll.salary_base, 
-              salary_liquid: payroll.salary_liquid,
-              month: payroll.month,
-              year: payroll.year,
-              total_income: payroll.total_income ,
-              overtime50: payroll.overtime50,
-              overtime100: payroll.overtime100,
-              total_overtime: payroll.total_overtime,
-              month_total_workdays: payroll.month_total_workdays,
-              day_total_workhours: payroll.day_total_workhours,
-              base_day: payroll.base_day,
-              base_hour: payroll.base_hour,
-              absences: payroll.absences,
-              total_absences: payroll.total_absences as any,
-              cash_advances: payroll.cash_advances,
-              subsidy: payroll.subsidy,
-              bonus: payroll.bonus,
-              backpay: payroll.backpay,
-              irps: payroll.irps,
-              inss_employee: payroll.inss_employee,
-              inss_company: payroll.inss_company,
-              total_inss: +(payroll.inss_company) + (+payroll.inss_employee) as any,
-              tabelaSalario: payroll.tabelaSalario,
-              payrollDemo: payroll.payrollDemo
-            }
-            listEmployeesPayrolls.push(employeePayroll)
-
-          }
+        } else {
+          //employe doesn exist
+        }
         })
 
         return listEmployeesPayrolls
@@ -178,5 +146,4 @@ class OutputAllUseCase {
         // return payrolls
     }
 }
-export { OutputAllUseCase }
-
+export { ListInputPayrollEmployeeUseCase }

@@ -14,7 +14,7 @@ class UpdateEmployeeUseCase {
         private userRepository: IUsersRepository,
   ) {}
   
-   async execute({id, user_id, employee_id, name, dependents, salary, position_id, department_id, birth_date, 
+   async execute({id, user_id, employee_number, name, dependents, salary, position_id, department_id, birth_date, 
     place_birth,
     nationality,
     bi,
@@ -51,7 +51,7 @@ class UpdateEmployeeUseCase {
 
     // employee.birth_date = birth_date as Date
 
-    await this.employeesRepository.create({id, employee_id, name, dependents, salary, position_id, department_id, birth_date, 
+    await this.employeesRepository.create({id, employee_number, name, dependents, salary, position_id, department_id, birth_date, 
       place_birth,
       nationality,
       bi,

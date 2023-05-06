@@ -1,6 +1,6 @@
 interface ICreateEmployeeDTO {
   id?: string;
-  employee_id?: number;
+  employee_number?: number;
   name: string;
   salary: string;
   dependents: number;
@@ -19,6 +19,12 @@ interface ICreateEmployeeDTO {
   nuit?: number;
   vacation?: number;
   subsidy?:  string;
+  subsidy_transport?: string;
+  subsidy_food?: string;
+  subsidy_residence?: string;
+  subsidy_medical?: string;
+  subsidy_vacation?: string;
+  salary_thirteenth?: string;
   department?: string;
   position?: string;
   start_date?: Date;

@@ -46,40 +46,47 @@ class Setting {
   company_avatar: string
 
   @Column()
-  payroll_total_workdays_month: number;
+  company_logo_name: string;
+
+  @Column()
+  payroll_month_total_workdays: number;
   
   @Column()
-  payroll_total_workhours_day: number;
+  payroll_day_total_workhours: number;
 
   @Column()
-  overtime: string
+  overtime_status: string
 
   @Column()
-  absences: string
+  absences_status: string
 
   @Column()
-  cash_advances: string
+  cash_advances_status: string
 
   @Column()
-  bonus: string
+  bonus_status: string
 
   @Column()
-  backpay: string
+  backpay_status: string
 
   @Column()
-  subsidy: string
+  subsidy_status: string
+
+  @Column()
+  syndicate_status: string;
 
   @Column()
   flag: number;
   
   @Column()
-  syndicate_status: string;
+  payroll_syndicate_tax: number;
 
   @Column()
-  syndicate_tax: number;
+  payroll_inss_employee_tax: number;
 
   @Column()
-  company_logo_name: string;
+  payroll_inss_company_tax: number;
+
 
   @CreateDateColumn()
   created_at: Date;

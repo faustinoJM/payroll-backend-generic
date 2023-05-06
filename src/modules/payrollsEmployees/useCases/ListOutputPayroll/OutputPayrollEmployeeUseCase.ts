@@ -3,10 +3,11 @@ import AppError  from "../../../../shared/errors/AppError";
 import { IEmployeesRepository } from "../../../employees/repositories/IEmployeesRepository";
 import IPositionsRepository from "../../../positions/repositories/IPositionsRepository";
 import IDepartmentsRepository from "../../../departments/repositories/IDepartmentsRepository";
-import { ICreatePayrollDTO2 } from "../../dtos/ICreatePayrollDTO2";
-import { IPayrollRepository } from "../../repositories/IPayrollRepository";
-import { Payroll } from "../../infra/typeorm/entities/Payroll";
 import { IUsersRepository } from "../../../accounts/repositories/IUsersRepository";
+import { IPayrollRepository } from "../../../payrolls/repositories/IPayrollRepository";
+import { IPayrollEmployeeRepository } from "../../repositories/IPayrollEmployeeRepository";
+import { ICreatePayrollEmployeeDTO } from "../../dtos/ICreatePayrollEmployeeDTO";
+import { PayrollEmployee } from "../../infra/typeorm/entities/PayrollEmployee";
 
 export interface ISalario {
   salarioLiquido?: number;
@@ -33,10 +34,13 @@ export interface IPayrollDemo {
 }
 
 @injectable()
-class OutputPayrollUseCase {
+class OutputPayrollEmployeeUseCase {
 
     constructor(@inject("PayrollRepository")
         private payrollRepository: IPayrollRepository,
+
+        @inject("PayrollEmployeeRepository")
+        private payrollEmployeeRepository: IPayrollEmployeeRepository,
 
         @inject("UsersRepository")
         private userRepository: IUsersRepository,
@@ -58,12 +62,12 @@ class OutputPayrollUseCase {
           throw new  AppError("User Auth doesn't Exists")
         }
 
-        const payrolls = await this.payrollRepository.list(user.company_id)
+        const payrolls = await this.payrollEmployeeRepository.list(user.company_id)
         const employees = await this.employeeRepository.list(user.company_id);
         const positions = await this.positionsRepository.list(user.company_id)
         const departments = await this.departmentsRepository.list(user.company_id) 
-        const listEmployeesPayrolls: ICreatePayrollDTO2[] = [];
-        let payrolls2: Payroll[] = []
+        const listEmployeesPayrolls: ICreatePayrollEmployeeDTO[] = [];
+        let payrolls2: PayrollEmployee[] = []
 
         function positionName(positionId: string) {
           return positions.find((position) => position.id === positionId)
@@ -88,13 +92,13 @@ class OutputPayrollUseCase {
         }
 
         payrolls2.map((payroll) =>{
-          const employee =  employees.find(employee => employee.id === payroll.employee_uid)
+          const employee =  employees.find(employee => employee.id === payroll.employee_id)
 
          if (employee) {
-         let employeePayroll: ICreatePayrollDTO2 = {
+         let employeePayroll: ICreatePayrollEmployeeDTO = {
             id: payroll.id,
-            employee_uid: employee.id,
-            employee_id: employee.employee_id,
+            employee_id: employee.id,
+            employee_number: employee.employee_number,
             employee_name: employee.name,
             dependents: employee.dependents,
             position_name: positionName(employee.position_id!)?.name,
@@ -126,17 +130,16 @@ class OutputPayrollUseCase {
             total_inss: +(payroll.inss_company) + (+payroll.inss_employee) as any,
             syndicate_employee: payroll.syndicate_employee,
             created_at: payroll.created_at,
-            tabelaSalario: payroll.tabelaSalario,
-            payrollDemo: payroll.payrollDemo
+          
           };
       
           listEmployeesPayrolls.push(employeePayroll)
           } else {
             //employe doesn exist
-            let employeePayroll: ICreatePayrollDTO2 = {
+            let employeePayroll: ICreatePayrollEmployeeDTO = {
               id: payroll.id,
-              employee_uid: null as any,
               employee_id: null as any,
+              employee_number: null as any,
               employee_name: payroll.employee_name,
               dependents: payroll.dependents,
               position_name: payroll.position_name,
@@ -167,8 +170,7 @@ class OutputPayrollUseCase {
               inss_company: payroll.inss_company,
               total_inss: +(payroll.inss_company) + (+payroll.inss_employee) as any,
               syndicate_employee: payroll.syndicate_employee,
-              tabelaSalario: payroll.tabelaSalario,
-              payrollDemo: payroll.payrollDemo
+              
             }
             listEmployeesPayrolls.push(employeePayroll)
 
@@ -180,61 +182,5 @@ class OutputPayrollUseCase {
         // return payrolls
     }
 }
-export { OutputPayrollUseCase }
+export { OutputPayrollEmployeeUseCase }
 
-
-
-// let totalLiquid = 0
-// let totalBase = 0
-// let totalIrps = 0
-// let totalGross = 0
-// let totalInss = 0
-// let totalInssCompany = 0
-// let totalInssEmployee = 0
-
-// payrolls2.map((employee) => {
-// totalLiquid += (+employee.salary_liquid)
-// totalBase += (+employee.salary_base)
-// totalGross += (+employee.total_income)
-// totalIrps += (+employee.irps)
-// totalInss += (+employee.inss_company) + (+employee.inss_employee)
-// totalInssCompany += (+employee.inss_company)
-// totalInssEmployee += (+employee.inss_employee)
-// })
-// let employeePayroll: ICreatePayrollDTO2 = {
-// id: "ds4444488xtino",
-// employee_id: null as any,
-// employee_name: "Total",
-// dependents: "" as any,
-// position_name: "" as any,
-// departament_name: "" as any,
-// nib: "" as any,
-// social_security: "" as any,
-// nuit: "" as any,
-// month: "" as any,
-// year: "" as any,
-// overtime50: "" as any,
-// overtime100: "" as any,
-// total_overtime: "" as any,
-// month_total_workdays: "" as any,
-// day_total_workhours: "" as any,
-// base_day: "" as any,
-// base_hour: "" as any,
-// absences: "" as any,
-// total_absences: "" as any,
-// cash_advances: "" as any,
-// subsidy: "" as any,
-// bonus: "" as any,
-// backpay: "" as any,
-// salary_base: totalBase as any,
-// total_salary_liquid:  totalLiquid as any,
-// total_income: totalGross as any, 
-// irps: totalIrps as any, 
-// inss_employee: totalInssEmployee as any, 
-// salary_liquid: totalLiquid as any, 
-// inss_company: totalInssCompany as any, 
-// total_inss: totalInss as any, 
-// employee_uid: null as any,
-    
-// }
-// listEmployeesPayrolls.push(employeePayroll)

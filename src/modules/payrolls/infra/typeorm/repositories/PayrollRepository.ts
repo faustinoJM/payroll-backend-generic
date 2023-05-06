@@ -1,5 +1,6 @@
 import { Repository } from "typeorm";
 import { AppDataSource } from "../../../../../shared/infra/typeorm";
+import { ICreatePayrollDTO } from "../../../dtos/ICreatePayrollDTO";
 import { ICreatePayrollDTO2 } from "../../../dtos/ICreatePayrollDTO2";
 import { IPayrollRepository } from "../../../repositories/IPayrollRepository";
 import { Payroll } from "../entities/Payroll";
@@ -12,84 +13,27 @@ class PayrollRepository implements IPayrollRepository {
     }
     
     async create({ id,
-      employee_uid,
       company_id,
-      employee_name,
-      dependents,
-      position_name,
-      departament_name,
-      nib,
-      social_security,
-      nuit,
-      salary_base,
-      salary_liquid,
       month,
       year,
-      overtime50,
-      overtime100,
-      total_overtime,
-      month_total_workdays,
-      day_total_workhours,
-      base_day,
-      base_hour,
-      absences,
-      total_absences,
-      cash_advances,
-      backpay,
-      subsidy,
-      bonus,
-      irps,
-      inss_employee,
-      inss_company,
-      total_income,
-      syndicate_employee}: ICreatePayrollDTO2): Promise<void> {
+      total_employee,
+      flag}: ICreatePayrollDTO): Promise<Payroll> {
         const payroll =  this.repository.create({
           id,
           company_id,
-          employee_uid,
-          employee_name,
-          position_name,
-          dependents,
-          departament_name,
-          nib,
-          social_security,
-          nuit,
-          salary_base,
-          salary_liquid,
           month,
           year,
-          overtime50,
-          overtime100,
-          total_overtime,
-          month_total_workdays,
-          day_total_workhours,
-          base_day,
-          base_hour,
-          total_absences,
-          absences,
-          cash_advances,
-          backpay,
-          subsidy,
-          bonus,
-          irps,
-          inss_employee,
-          inss_company,
-          total_income,
-          syndicate_employee
+          total_employee,
+          flag
         });
         
-        await this.repository.save(payroll);
+       const payrollCreated = await this.repository.save(payroll);
+
+       return payrollCreated;
         
     }
     
-    async findByEmployeeId(employee_uid: string): Promise<Payroll | null> {
-        const payroll = await this.repository.findOne({ 
-          where: { employee_uid }
-         });
-
-        return payroll;
-    }
-
+   
     async findById(id: string, company_id: string): Promise<Payroll | null> {
         const payroll = await this.repository.findOne({
           where: { id, company_id }
@@ -98,7 +42,7 @@ class PayrollRepository implements IPayrollRepository {
         return payroll;
     }
 
-    async findByMouth(month: string, company_id: string): Promise<Payroll | null> {
+    async findByMonth(month: string, company_id: string): Promise<Payroll | null> {
       const  payroll = await this.repository.findOne({
         where: { month, company_id}
       })
@@ -130,7 +74,7 @@ class PayrollRepository implements IPayrollRepository {
 
       return payrolls;
     }
-    async findAllByYearAndByMonth(year: number, month: string, company_id: string): Promise<Payroll[] | null> {
+    async findAllByYearAndByMonth(year: number, month: string, company_id: string): Promise<Payroll[] | []> {
       const  payrolls = await this.repository.find({
         where: { month, year, company_id}
       })

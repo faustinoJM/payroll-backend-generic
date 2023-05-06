@@ -1,16 +1,16 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
-import { ListInputPayrollUseCase } from "./ListInputPayrollUseCase";
+import { ListInputPayrollEmployeeUseCase } from "./ListInputPayrollEmployeeUseCase";
 
 
-class ListInputPayrollController {
+class ListInputPayrollEmployeeController {
 
     async handle(request: Request, response: Response) {
         const user_id = request.user?.id;
 
         const { year, month } = request.body
 
-        const listInputPayrollUseCase = container.resolve(ListInputPayrollUseCase);
+        const listInputPayrollUseCase = container.resolve(ListInputPayrollEmployeeUseCase);
 
         const payrolls = await listInputPayrollUseCase.execute(year, month, user_id)
 
@@ -18,4 +18,4 @@ class ListInputPayrollController {
     }
 }
 
-export { ListInputPayrollController }
+export { ListInputPayrollEmployeeController }

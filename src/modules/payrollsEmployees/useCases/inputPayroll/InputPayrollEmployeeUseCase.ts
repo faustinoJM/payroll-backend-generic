@@ -3,10 +3,10 @@ import AppError  from "../../../../shared/errors/AppError";
 import { IEmployeesRepository } from "../../../employees/repositories/IEmployeesRepository";
 import IPositionsRepository from "../../../positions/repositories/IPositionsRepository";
 import IDepartmentsRepository from "../../../departments/repositories/IDepartmentsRepository";
-import { IPayrollRepository } from "../../repositories/IPayrollRepository";
-import { Payroll } from "../../infra/typeorm/entities/Payroll";
-import { ICreatePayrollDTO2 } from "../../dtos/ICreatePayrollDTO2";
 import { IUsersRepository } from "../../../accounts/repositories/IUsersRepository";
+import { ICreatePayrollEmployeeDTO } from "../../dtos/ICreatePayrollEmployeeDTO";
+import { IPayrollEmployeeRepository } from "../../repositories/IPayrollEmployeeRepository";
+import { IPayrollRepository } from "../../../payrolls/repositories/IPayrollRepository";
 
 export interface ISalario {
   salarioLiquido?: number;
@@ -62,10 +62,13 @@ interface IRequestList {
 
 
 @injectable()
-class InputPayrollUseCase {
+class InputPayrollEmployeeUseCase {
 
     constructor(@inject("PayrollRepository")
         private payrollRepository: IPayrollRepository,
+
+        @inject("PayrollEmployeeRepository")
+        private payrollEmployeeRepository: IPayrollEmployeeRepository,
 
         @inject("UsersRepository")
         private userRepository: IUsersRepository,
@@ -89,42 +92,42 @@ class InputPayrollUseCase {
           throw new  AppError("User Auth doesn't Exists")
         }
 
-        const listEmployeesPayrolls: ICreatePayrollDTO2[] = [];
+        const listEmployeesPayrolls: ICreatePayrollEmployeeDTO[] = [];
         // let employeePayroll: ICreatePayrollTO = {}
         const payrolls = await this.payrollRepository.list(user.company_id)
         const employees = await this.employeeRepository.list(user.company_id);
         const positions = await this.positionsRepository.list(user.company_id)
         const departments = await this.departmentsRepository.list(user.company_id)   
-        const payroll = await this.payrollRepository.findById(id as string, user.company_id);
+        const payrollEmployee = await this.payrollEmployeeRepository.findById(id as string, user.company_id);
         
-        if(!payroll) {
+        if(!payrollEmployee) {
           throw new AppError("Payroll doesn't exists")
         }
 
         if (absences! >= 0)
           absences = absences //absences = absences ?? +payroll.absences 
         else
-          absences = +payroll.absences 
+          absences = +payrollEmployee.absences 
         if (overtime50! >= 0) 
           overtime50 = overtime50
         else 
-          overtime50 = +payroll.overtime50
+          overtime50 = +payrollEmployee.overtime50
         if (overtime100! >= 0) 
           overtime100 = overtime100
         else 
-          overtime100 = +payroll.overtime100
+          overtime100 = +payrollEmployee.overtime100
         if (cash_advances! >= 0) 
           cash_advances = cash_advances
         else 
-          cash_advances = +payroll.cash_advances
+          cash_advances = +payrollEmployee.cash_advances
         if (backpay! >= 0) 
           backpay = backpay
         else 
-          backpay = +payroll.backpay
+          backpay = +payrollEmployee.backpay
         if (bonus! >= 0) 
           bonus = bonus
         else 
-          bonus = +payroll.bonus
+          bonus = +payrollEmployee.bonus
   
           // console.log("auauauauau"+absences)
         if(employees.length <= 0) {
@@ -139,12 +142,12 @@ class InputPayrollUseCase {
           return departments.find((department) => department.id === departmentId)
         }
 
-        const employee =  employees.find(employee => employee.id === payroll.employee_uid)
+        const employee =  employees.find(employee => employee.id === payrollEmployee.employee_id)
           // console.log(employee)
         if(employee) {
 
-          let base_day = calcSalarioEmDias(payroll.month_total_workdays, +employee.salary)
-          let base_hour = calcSalarioPorHora(base_day, payroll.day_total_workhours)
+          let base_day = calcSalarioEmDias(payrollEmployee.month_total_workdays, +employee.salary)
+          let base_hour = calcSalarioPorHora(base_day, payrollEmployee.day_total_workhours)
           let total_overtime = calcTotalHorasExtras(base_hour, overtime50!, overtime100!)
           let total_absences = calcTotalFaltas(absences!, base_day)
           // let total_income = +calcTotalSalario(+employee.salary, total_overtime!, total_absences, +cash_advances!, +backpay!, +employee.bonus).toFixed(2)
@@ -156,9 +159,10 @@ class InputPayrollUseCase {
           // console.log(parseFloat(employee.salary).toFixed(2))
           // console.log((+employee.salary).toFixed(2))
           
-         let employeePayroll: ICreatePayrollDTO2 = {
-            id: payroll.id,
-            employee_uid: employee.id,
+         let employeePayroll: ICreatePayrollEmployeeDTO = {
+            id: payrollEmployee.id,
+            payroll_id: payrollEmployee.payroll_id,
+            employee_id: employee.id,
             employee_name: employee.name,
             dependents: employee.dependents,
             position_name: positionName(employee.position_id!)?.name,
@@ -168,14 +172,14 @@ class InputPayrollUseCase {
             nuit: employee.nuit,
             salary_base: employee.salary, 
             salary_liquid: salary_liquid as any,
-            month: payroll.month,
-            year: payroll.year,
+            month: payrollEmployee.month,
+            year: payrollEmployee.year,
             total_income: total_income  as any,
             overtime50,
             overtime100,
             total_overtime: total_overtime as any, //((+payroll.total_overtime) + total_overtime) as any,
-            month_total_workdays: payroll.month_total_workdays,
-            day_total_workhours: payroll.day_total_workhours,
+            month_total_workdays: payrollEmployee.month_total_workdays,
+            day_total_workhours: payrollEmployee.day_total_workhours,
             base_day: base_day as any,
             base_hour: base_hour as any,
             absences,
@@ -189,12 +193,12 @@ class InputPayrollUseCase {
             inss_company: INSS_Company as any,
             tabelaSalario: retornarTabela(+total_income!, employee.dependents),
             payrollDemo: retornarPayrollDemo(+employee.salary, overtime50,
-              overtime100, payroll.month_total_workdays, payroll.day_total_workhours, absences,
+              overtime100, payrollEmployee.month_total_workdays, payrollEmployee.day_total_workhours, absences,
               +cash_advances!, +backpay!, +employee.subsidy, +bonus!, +total_income!, +IRPS!, +INSS!)
           };
 
           //salvar no banco de dados
-          this.payrollRepository.create(employeePayroll).then().
+          this.payrollEmployeeRepository.create(employeePayroll).then().
           catch((err) => console.log(err))
           
           listEmployeesPayrolls.push(employeePayroll)
@@ -491,5 +495,5 @@ function calcularSalarioLiquido(totalSalario: number, IRPS: number, INSS_Employe
 }
 
 
-export { InputPayrollUseCase }
+export { InputPayrollEmployeeUseCase }
 

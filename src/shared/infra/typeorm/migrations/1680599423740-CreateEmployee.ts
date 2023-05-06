@@ -13,7 +13,7 @@ export class CreateEmployee1680599423740 implements MigrationInterface {
             isPrimary: true,
           },
           {
-            name: 'employee_id',
+            name: 'employee_number',
             type: 'int',
             // isGenerated: true,
             // generationStrategy: 'increment',
@@ -58,12 +58,12 @@ export class CreateEmployee1680599423740 implements MigrationInterface {
           {
             name: "marital_status",
             type: "varchar",
-            // isNullable: true
+            isNullable: true
           },
           {
             name: "gender",
             type: "varchar",
-            // isNullable: true
+            isNullable: true
           },
           {
             name: "address",
@@ -72,11 +72,12 @@ export class CreateEmployee1680599423740 implements MigrationInterface {
           },
           {
             name: "contact",
-            type: "int",
+            type: "bigint",
+            isNullable: true
           },
           {
             name: "contact2",
-            type: "int",
+            type: "bigint",
             isNullable: true
           },
           {
@@ -97,6 +98,37 @@ export class CreateEmployee1680599423740 implements MigrationInterface {
           {
             name: "subsidy",
             type: "double precision",
+            isNullable: true
+          },
+          {
+            name: "subsidy_transport",
+            type: "varchar",
+            isNullable: true,
+          },
+          {
+            name: "subsidy_food",
+            type: "varchar",
+            isNullable: true,
+          },
+          {
+            name: "subsidy_residence",
+            type: "varchar",
+            isNullable: true,
+          },
+          {
+            name: "subsidy_medical",
+            type: "varchar",
+            isNullable: true,
+          },
+          {
+            name: "subsidy_vacation",
+            type: "varchar",
+            isNullable: true,
+          }, 
+          {
+            name: "salary_thirteenth",
+            type: "varchar",
+            isNullable: true,
           },
           {
             name: "department",
@@ -142,6 +174,16 @@ export class CreateEmployee1680599423740 implements MigrationInterface {
             name: "social_security",
             type: "bigint",
             isNullable: true
+          },
+          {
+            name: "syndicate_status",
+            type: "varchar",
+            isNullable: true,
+          },
+          {
+            name: "inss_status",
+            type: "varchar",
+            isNullable: true,
           },
           {
             name: 'created_at',

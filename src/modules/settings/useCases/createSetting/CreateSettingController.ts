@@ -20,17 +20,20 @@ class CreateSettingController {
           postal_code,
           company_country,
           company_avatar,
-          payroll_total_workdays_month,
-          payroll_total_workhours_day,
-          overtime,
-          absences,
-          cash_advances,
-          bonus,
-          backpay,
-          subsidy, flag,
+          company_logo_name,
+          payroll_month_total_workdays,
+          payroll_day_total_workhours,
+          overtime_status,
+          absences_status,
+          cash_advances_status,
+          bonus_status,
+          backpay_status,
           syndicate_status,
-          syndicate_tax,
-          company_logo_name
+          subsidy_status, 
+          flag,
+          payroll_syndicate_tax,
+          payroll_inss_employee_tax,
+          payroll_inss_company_tax
         } = request.body;
 
 
@@ -50,17 +53,19 @@ class CreateSettingController {
           postal_code,
           company_country,
           company_avatar,
-          payroll_total_workdays_month,
-          payroll_total_workhours_day,
-          overtime,
-          absences,
-          cash_advances,
-          bonus,
-          backpay,
-          subsidy,flag,
+          company_logo_name,
+          payroll_month_total_workdays,
+          payroll_day_total_workhours,
+          overtime_status,
+          absences_status,
+          cash_advances_status,
+          bonus_status,
+          backpay_status,
+          subsidy_status,flag,
           syndicate_status,
-          syndicate_tax,
-          company_logo_name
+          payroll_syndicate_tax,
+          payroll_inss_employee_tax,
+          payroll_inss_company_tax
          })
 
         return response.status(201).send();

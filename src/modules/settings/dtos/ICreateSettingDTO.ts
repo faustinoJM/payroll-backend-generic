@@ -11,21 +11,23 @@ export default interface ICreateSettingDTO {
   company_city?: string;
   postal_code?: number
   company_country?: string;
-  company_avatar?: string
-  payroll_total_workdays_month?: number;
-  payroll_total_workhours_day?: number;
-  overtime?: string
-  absences?: string
-  cash_advances?: string
-  bonus?: string
-  backpay?: string
-  subsidy?: string
+  company_avatar?: string;
+  company_logo_name?: string;
+  payroll_month_total_workdays?: number;
+  payroll_day_total_workhours?: number;
+  overtime_status?: string
+  absences_status?: string
+  cash_advances_status?: string
+  bonus_status?: string
+  backpay_status?: string
+  subsidy_status?: string
+  syndicate_status?: string;
   flag?: number;
   user_id?: string;
   company_id?: string;
-  syndicate_status?: string;
-  syndicate_tax?: number;
-  company_logo_name?: string;
+  payroll_syndicate_tax?: number;
+  payroll_inss_employee_tax?: number,
+  payroll_inss_company_tax?: number,
 }
 
 

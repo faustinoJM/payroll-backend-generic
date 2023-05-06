@@ -16,6 +16,8 @@ import ISettingRepository from "../../modules/settings/repositories/ISettingRepo
 import SettingsRepository from "../../modules/settings/infra/typeorm/repositories/SettingsRepository";
 import ICompanyRepository from "../../modules/company/repositories/ICompanyRepository";
 import CompanyRepository from "../../modules/company/infra/typeorm/repositories/CompanyRepository";
+import { PayrollEmployeeRepository } from "../../modules/payrollsEmployees/infra/typeorm/repositories/PayrollEmployeeRepository";
+import { IPayrollEmployeeRepository } from "../../modules/payrollsEmployees/repositories/IPayrollEmployeeRepository";
 
 
 container.registerSingleton<IUsersRepository>(
@@ -31,6 +33,11 @@ container.registerSingleton<IEmployeesRepository>(
 container.registerSingleton<IPayrollRepository>(
   "PayrollRepository",
   PayrollRepository
+)
+
+container.registerSingleton<IPayrollEmployeeRepository>(
+  "PayrollEmployeeRepository",
+  PayrollEmployeeRepository
 )
 
 container.registerSingleton<IDepartmentsRepository>(

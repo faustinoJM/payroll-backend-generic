@@ -1,14 +1,14 @@
 import { inject, injectable } from "tsyringe";
 import AppError  from "../../../../shared/errors/AppError";
-import { IPayrollRepository } from "../../repositories/IPayrollRepository";
-import { IUsersRepository } from "../../../accounts/repositories/IUsersRepository";
-import { IPayrollEmployeeRepository } from "../../../payrollsEmployees/repositories/IPayrollEmployeeRepository";
-import { ICreatePayrollDTO2 } from "../../dtos/ICreatePayrollDTO2";
 import { IEmployeesRepository } from "../../../employees/repositories/IEmployeesRepository";
 import IPositionsRepository from "../../../positions/repositories/IPositionsRepository";
-import IDepartmentsRepository from "../../../category/repositories/IDepartmentsRepository";
+import IDepartmentsRepository from "../../../departments/repositories/IDepartmentsRepository";
 import ISettingRepository from "../../../settings/repositories/ISettingRepository";
-import { ICreatePayrollEmployeeDTO } from "../../../payrollsEmployees/dtos/ICreatePayrollEmployeeDTO";
+import ICompanyRepository from "../../../company/repositories/ICompanyRepository";
+import { IUsersRepository } from "../../../accounts/repositories/IUsersRepository";
+import { IPayrollRepository } from "../../../payrolls/repositories/IPayrollRepository";
+import { IPayrollEmployeeRepository } from "../../repositories/IPayrollEmployeeRepository";
+import { ICreatePayrollEmployeeDTO } from "../../dtos/ICreatePayrollEmployeeDTO";
 
 export interface ISalario {
   salarioLiquido?: number;
@@ -35,14 +35,14 @@ export interface IPayrollDemo {
 }
 
 @injectable()
-class CreatePayrollUseCase {
+class CreatePayrollEmployeeUseCase {
 
     constructor(@inject("PayrollRepository")
         private payrollRepository: IPayrollRepository,
 
         @inject("PayrollEmployeeRepository")
         private payrollEmployeeRepository: IPayrollEmployeeRepository,
-        
+
         @inject("UsersRepository")
         private userRepository: IUsersRepository,
       
@@ -57,39 +57,24 @@ class CreatePayrollUseCase {
 
         @inject("SettingsRepository")
         private settingsRepository: ISettingRepository
-      
         ) {}
 
-    async execute(month: string, year: number, user_id: string) {
+    async execute(payroll_id: string, month: string, year: number, user_id: string) {
         const user = await this.userRepository.findById(user_id as any)
 
         if (!user) {
           throw new  AppError("User Auth doesn't Exists")
         }
-        user.company_id
 
-        // const payrollYearMonth = await this.payrollRepository.findAllByYearAndByMonth(year!, month!, user.company_id)
-        const payrollYearMonth = await this.payrollRepository.list(user.company_id)
-
-        const AlreadyYearMonth = payrollYearMonth.find((data) => ((data.month === month) && (data.year === +year)))
-        
-        // if(payrollYearMonth?.length! > 0) {
-
-       console.log("spdsp", AlreadyYearMonth)
-        if(AlreadyYearMonth) {
-          throw new AppError("O mes ja esta Pago")
-        }
-        const payrollCreated = await this.payrollRepository.create({month, year, company_id: user.company_id})
-        // const payrollCreated = this.payrollRepository.create({month, year, company_id: user.company_id}).then().
-        //   catch((err) => console.log(err))
-
-          const listEmployeesPayrolls: ICreatePayrollDTO2[] = [];
+        const listEmployeesPayrolls: ICreatePayrollEmployeeDTO[] = [];
         // let employeePayroll: ICreatePayrollTO = {}
         const employees = await this.employeeRepository.list(user.company_id);
         const positions = await this.positionsRepository.list(user.company_id)
         const departments = await this.departmentsRepository.list(user.company_id)
         const settings = await this.settingsRepository.list(user.company_id,)
-        
+
+        const payrollYearMonth = await this.payrollRepository.findAllByYearAndByMonth(year!, month!, user.company_id)
+
         const overtime50 = 0;
         const overtime100 = 0;
         const absences = 0;
@@ -97,10 +82,17 @@ class CreatePayrollUseCase {
         const backpay = 0;
         const bonus = 0;
 
-        const month_total_workdays = settings?.payroll_month_total_workdays ?? 26;
+        const month_total_workdays = settings?.payroll_month_total_workdays ?? 30;
         const day_total_workhours = settings?.payroll_day_total_workhours ?? 8;
         const syndicate_tax = settings?.payroll_syndicate_tax ?? 1;
        
+
+        console.log("150", month_total_workdays)
+        console.log("151", day_total_workhours)
+        if(payrollYearMonth?.length! > 0) {
+          throw new AppError("O mes ja esta Pago")
+        }
+
         if(employees.length <= 0) {
             throw new AppError("Employees Doesn't Exists");
         }
@@ -127,7 +119,7 @@ class CreatePayrollUseCase {
           // console.log(parseFloat(employee.salary).toFixed(2))
           
          let employeePayroll: ICreatePayrollEmployeeDTO = {
-            payroll_id: payrollCreated?.id,
+            payroll_id: payroll_id,
             employee_id: employee.id,
             company_id: user.company_id,
             employee_name: employee.name,
@@ -152,16 +144,22 @@ class CreatePayrollUseCase {
             absences,
             total_absences: total_absences as any,
             cash_advances: cash_advances as any,
-            subsidy: employee.subsidy,
+            subsidy: employee.subsidy ?? 0,
             bonus: bonus as any,
             backpay: backpay as any,
             irps: IRPS as any,
             inss_employee: INSS_Employee as any,
             inss_company: INSS_Company as any,
             syndicate_employee: syndicate_employee as any,
+            subsidy_transport: employee.subsidy_transport ?? 0,
+            subsidy_food: employee.subsidy_food ?? 0,
+            subsidy_residence: employee.subsidy_residence ?? 0,
+            subsidy_medical: employee.subsidy_medical ?? 0,
+            subsidy_vacation: employee.subsidy_vacation ?? 0,
+            salary_thirteenth: employee.salary_thirteenth ?? 0,
             tabelaSalario: retornarTabela(+total_income!, employee.dependents),
             payrollDemo: retornarPayrollDemo(+employee.salary, overtime50,
-               overtime100, month_total_workdays, day_total_workhours, absences,
+              overtime100, month_total_workdays, day_total_workhours, absences,
               +cash_advances!, +backpay!, bonus, +total_income!, +IRPS!, +INSS_Employee!)
 
           };
@@ -173,9 +171,7 @@ class CreatePayrollUseCase {
         })
 
         return listEmployeesPayrolls
-
-          // return payroll;
-      }
+    }
 }
 
 function calcularSalario(salary: number, dependents: number) {
@@ -467,5 +463,5 @@ function calcularSalarioLiquido(totalSalario: number, IRPS: number, INSS_Employe
 }
 
 
-export { CreatePayrollUseCase }
+export { CreatePayrollEmployeeUseCase }
 

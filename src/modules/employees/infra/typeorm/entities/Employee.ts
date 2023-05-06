@@ -12,7 +12,7 @@ class Employee {
     company_id: string;
   
     @Column()
-    employee_id: number;
+    employee_number: number;
 
     @Column()
     name: string;
@@ -61,6 +61,24 @@ class Employee {
 
     @Column()
     subsidy: string;
+
+    @Column()
+    subsidy_transport: string;
+
+    @Column()
+    subsidy_food: string;
+
+    @Column()
+    subsidy_residence: string;
+
+    @Column()
+    subsidy_medical: string;
+
+    @Column()
+    subsidy_vacation: string;
+
+    @Column()
+    salary_thirteenth: string;
 
     @Column()
     start_date: Date;
