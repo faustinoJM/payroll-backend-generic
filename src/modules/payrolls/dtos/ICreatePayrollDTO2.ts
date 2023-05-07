@@ -42,7 +42,6 @@ interface ICreatePayrollDTO2 {
   total_inss_employee?: string
   total_inss_company?: string
   total_irps?: string
-  total_inssBoth?: string;
   syndicate_employee?: string;
   created_at?: Date;
   tabelaSalario?: ISalario;

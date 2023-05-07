@@ -2,30 +2,8 @@ import { inject, injectable } from "tsyringe";
 import AppError  from "../../../../shared/errors/AppError";
 import { IPayrollRepository } from "../../repositories/IPayrollRepository";
 import { IUsersRepository } from "../../../accounts/repositories/IUsersRepository";
-
-export interface ISalario {
-  salarioLiquido?: number;
-  coeficiente: number;
-  limiteNTributavel: number ;
-  AResult?: number;
-  AxB?: number;
-  valorReter?: number;
-  impostoPagarIRPS?: number;
-}
-
-export interface IPayrollDemo {
-  overtime50?: number;
-  overtime100?: number;
-  month_total_workdays?: number;
-  day_total_workhours?: number;
-  totalAbsences?: number;
-  cash_advances?: number;
-  backpay?: number;
-  bonus?: number;
-  salary_liquid?: number;
-  IRPS?: number;
-  INSS?: number
-}
+import { IEmployeesRepository } from "../../../employees/repositories/IEmployeesRepository";
+import { IPayrollEmployeeRepository } from "../../../payrollsEmployees/repositories/IPayrollEmployeeRepository";
 
 @injectable()
 class ListAllPayrollUseCase {
@@ -35,6 +13,9 @@ class ListAllPayrollUseCase {
 
         @inject("UsersRepository")
         private userRepository: IUsersRepository,
+
+        @inject("PayrollEmployeeRepository")
+        private payrollEmployeeRepository: IPayrollEmployeeRepository,
     
         ) {}
 
@@ -46,6 +27,14 @@ class ListAllPayrollUseCase {
         }
 
         const payrolls = await this.payrollRepository.list(user.company_id)
+        const payrollEmployees = await this.payrollEmployeeRepository.list(user.company_id)
+
+
+
+        payrolls.map(payroll => {
+          payroll.total_employee = (payrollEmployees.filter(payrollEmployee => 
+            payrollEmployee.payroll_id === payroll.id)).length
+        })
 
         return payrolls;
 

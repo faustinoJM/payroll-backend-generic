@@ -9,6 +9,7 @@ import { IPayrollEmployeeRepository } from "../../repositories/IPayrollEmployeeR
 
 interface ICreatePayrollDTO2 {
   id?: string;
+  payroll_id?: string;
   employee_id?: string;
   employee_number?: number;
   employee_name?: string;
@@ -76,7 +77,7 @@ class SinglePayrollEmployeeUseCase {
         if (!user) {
           throw new  AppError("User Auth doesn't Exists")
         }
-        
+
         const payroll = await this.payrollEmployeeRepository.findById(id, user.company_id);
 
         if (!payroll) {
@@ -91,6 +92,7 @@ class SinglePayrollEmployeeUseCase {
 
           let employeePayroll: ICreatePayrollDTO2 = {
             id: payroll.id,
+            payroll_id: payroll.payroll_id,
             employee_id: employee.id,
             employee_number: employee.employee_number,
             employee_name: employee.name,
@@ -132,6 +134,7 @@ class SinglePayrollEmployeeUseCase {
       } else {
         let employeePayroll: ICreatePayrollDTO2 = {
           id: payroll.id,
+          payroll_id: payroll.payroll_id,
           employee_id: null as any,
           employee_number: null as any,
           employee_name: payroll.employee_name,
@@ -171,14 +174,6 @@ class SinglePayrollEmployeeUseCase {
       return employeePayroll;
 
       }
-
-        // horasExtras50 = horasExtras50 * salarioPorHora * 1.5
-        // horasExtras100 = horasExtras100 * salarioPorHora * 2
-
-               
-       
-
-        
 
     }
 }

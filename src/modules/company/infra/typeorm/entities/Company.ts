@@ -15,15 +15,29 @@ class Company {
   @Column()
   company_email: string;
 
-
   @Column()
   company_address: string;
   
+  @Column()
+  company_address2: string;
+
+  @Column()
+  company_street: string;
+
   @Column()
   company_city: string;
   
   @Column()
   company_province: string;
+
+  @Column()
+  company_nuit: string;
+
+  @Column()
+  company_bank_name: string;
+
+  @Column()
+  company_bank_account: string;
 
   @CreateDateColumn()
   created_at: Date;

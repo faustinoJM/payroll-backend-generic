@@ -7,5 +7,6 @@ export default interface ICompanyRepository {
   findByName(company_name: string): Promise<Company | null>
   findById(id: string): Promise<Company | null>
   list(): Promise<Company[] | null>
+  delete(id: string): Promise<void>
 
 }

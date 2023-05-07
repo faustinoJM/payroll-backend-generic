@@ -74,8 +74,8 @@ class PayrollRepository implements IPayrollRepository {
 
       return payrolls;
     }
-    async findAllByYearAndByMonth(year: number, month: string, company_id: string): Promise<Payroll[] | []> {
-      const  payrolls = await this.repository.find({
+    async findAllByYearAndByMonth(year: number, month: string, company_id: string): Promise<Payroll | null> {
+      const  payrolls = await this.repository.findOne({
         where: { month, year, company_id}
       })
 

@@ -55,14 +55,21 @@ class ListInputPayrollEmployeeUseCase {
         private departmentsRepository: IDepartmentsRepository
         ) {}
 
-    async execute(year: number, month: string, user_id: string) {
+    async execute(id: string, year: number, month: string, user_id: string) {
         const user = await this.userRepository.findById(user_id as any)
 
         if (!user) {
           throw new  AppError("User Auth doesn't Exists")
         }
 
-        const payrolls = await this.payrollEmployeeRepository.list(user.company_id)
+        const payroll = await this.payrollRepository.findById(id, user.company_id);
+
+        if (!payroll) {
+          throw new AppError("Payroll doesn't exists")
+        }
+
+        // const payrolls = await this.payrollEmployeeRepository.list(user.company_id)
+        const payrolls = await this.payrollEmployeeRepository.findAllByPayroll_Id(payroll.id, user.company_id)
         const employees = await this.employeeRepository.list(user.company_id);
         const positions = await this.positionsRepository.list(user.company_id)
         const departments = await this.departmentsRepository.list(user.company_id) 
@@ -100,6 +107,7 @@ class ListInputPayrollEmployeeUseCase {
          if(employee) {
          let employeePayroll: ICreatePayrollEmployeeDTO = {
             id: payroll.id,
+            payroll_id: payroll.payroll_id,
             employee_id: employee.id,
             employee_number: employee.employee_number,
             employee_name: employee.name,

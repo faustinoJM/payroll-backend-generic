@@ -31,6 +31,12 @@ class Setting {
   company_address: string;
 
   @Column()
+  company_address2: string;
+
+  @Column()
+  company_street: string;
+
+  @Column()
   company_province: string;
   
   @Column()
@@ -46,6 +52,15 @@ class Setting {
   company_avatar: string
 
   @Column()
+  company_nuit: string;
+
+  @Column()
+  company_bank_name: string;
+
+  @Column()
+  company_bank_account: string;
+
+  @Column()
   company_logo_name: string;
 
   @Column()
@@ -55,30 +70,6 @@ class Setting {
   payroll_day_total_workhours: number;
 
   @Column()
-  overtime_status: string
-
-  @Column()
-  absences_status: string
-
-  @Column()
-  cash_advances_status: string
-
-  @Column()
-  bonus_status: string
-
-  @Column()
-  backpay_status: string
-
-  @Column()
-  subsidy_status: string
-
-  @Column()
-  syndicate_status: string;
-
-  @Column()
-  flag: number;
-  
-  @Column()
   payroll_syndicate_tax: number;
 
   @Column()
@@ -87,6 +78,53 @@ class Setting {
   @Column()
   payroll_inss_company_tax: number;
 
+  @Column()
+  column_position_name?: string
+
+  @Column()
+  column_departament_name?: string
+
+  @Column()
+  column_overtime?: string
+
+  @Column()
+  column_absences?: string
+
+  @Column()
+  column_cash_advances?: string
+
+  @Column()
+  column_backpay?: string
+
+  @Column()
+  column_bonus?: string
+
+  @Column()
+  column_subsidy?: string
+
+  @Column()
+  column_syndicate?: string
+
+  @Column()
+  column_subsidy_transport?: string
+
+  @Column()
+  column_subsidy_food?: string
+
+  @Column()
+  column_subsidy_residence?: string
+
+  @Column()
+  column_subsidy_medical?: string
+
+  @Column()
+  column_subsidy_vacation?: string
+
+  @Column()
+  column_salary_thirteenth?: string
+
+  @Column()
+  flag: number;
 
   @CreateDateColumn()
   created_at: Date;

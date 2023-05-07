@@ -11,7 +11,7 @@ interface IPayrollEmployeeRepository {
     findAllByYear(year: number, company_id: string): Promise<PayrollEmployee[] | null>;
     findAllByMonth(month: string, company_id: string): Promise<PayrollEmployee[] | null>;
     findAllByYearAndByMonth(year: number, month: string, company_id: string): Promise<PayrollEmployee[] | null>;
-    findAllByPayroll_Id(payroll_id: string, company_id: string): Promise<PayrollEmployee[] | null>;
+    findAllByPayroll_Id(payroll_id: string, company_id: string): Promise<PayrollEmployee[] | []>;
     delete(payroll_id: string): Promise<void>
     deleteByPayroll_Id(payroll_id: string, company_id: string): Promise<void>
     deleteAllByYearAndMonth(year: number, month: string, company_id: string): Promise<void>

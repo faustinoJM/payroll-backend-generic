@@ -141,32 +141,32 @@ export class CreatePayrollEmployee1682353956401 implements MigrationInterface {
           },
           {
             name: "subsidy_transport",
-            type: "varchar",
+            type: "double precision",
             isNullable: true,
           },
           {
             name: "subsidy_food",
-            type: "varchar",
+            type: "double precision",
             isNullable: true,
           },
           {
             name: "subsidy_residence",
-            type: "varchar",
+            type: "double precision",
             isNullable: true,
           },
           {
             name: "subsidy_medical",
-            type: "varchar",
+            type: "double precision",
             isNullable: true,
           }, 
           {
             name: "subsidy_vacation",
-            type: "varchar",
+            type: "double precision",
             isNullable: true,
           }, 
           {
             name: "salary_thirteenth",
-            type: "varchar",
+            type: "double precision",
             isNullable: true,
           },
           {

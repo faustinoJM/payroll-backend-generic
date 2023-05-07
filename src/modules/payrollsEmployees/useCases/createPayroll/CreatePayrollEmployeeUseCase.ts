@@ -72,16 +72,30 @@ class CreatePayrollEmployeeUseCase {
         const positions = await this.positionsRepository.list(user.company_id)
         const departments = await this.departmentsRepository.list(user.company_id)
         const settings = await this.settingsRepository.list(user.company_id,)
+        const payrollYearMonth = await this.payrollRepository.findAllByYearAndByMonth(+year!, month!, user.company_id)
+        // const payrollYearMonth = await this.payrollRepository.list(user.company_id)
 
-        const payrollYearMonth = await this.payrollRepository.findAllByYearAndByMonth(year!, month!, user.company_id)
+        // const AlreadyYearMonth = payrollYearMonth.find((data) => ((data.month === month) && (data.year === +year)))
+        
+       console.log("spdsp", payrollYearMonth)
+        // if(AlreadyYearMonth) 
+        if(payrollYearMonth) {
+          throw new AppError("O mes ja esta Pago")
+        }
 
+        if(employees.length <= 0) {
+          throw new AppError("Employees Doesn't Exists");
+        }
+
+        const payrollCreated = await this.payrollRepository.create({month, year, company_id: user.company_id})
+
+        //initial values
         const overtime50 = 0;
         const overtime100 = 0;
         const absences = 0;
         const cash_advances = 0;
         const backpay = 0;
         const bonus = 0;
-
         const month_total_workdays = settings?.payroll_month_total_workdays ?? 30;
         const day_total_workhours = settings?.payroll_day_total_workhours ?? 8;
         const syndicate_tax = settings?.payroll_syndicate_tax ?? 1;
@@ -89,13 +103,6 @@ class CreatePayrollEmployeeUseCase {
 
         console.log("150", month_total_workdays)
         console.log("151", day_total_workhours)
-        if(payrollYearMonth?.length! > 0) {
-          throw new AppError("O mes ja esta Pago")
-        }
-
-        if(employees.length <= 0) {
-            throw new AppError("Employees Doesn't Exists");
-        }
 
         function positionName(positionId: string) {
           return positions.find((position) => position.id === positionId)
@@ -106,11 +113,13 @@ class CreatePayrollEmployeeUseCase {
         }
 
         employees.map((employee) =>{
-          let base_day = calcSalarioEmDias(month_total_workdays!, +employee.salary)
-          let base_hour = calcSalarioPorHora(base_day, day_total_workhours!)
+          let base_day = +calcSalarioEmDias(month_total_workdays!, +employee.salary).toFixed(2)
+          let base_hour = +calcSalarioPorHora(base_day, day_total_workhours!).toFixed(2)
           let total_overtime = calcTotalHorasExtras(base_hour, overtime50!, overtime100!)
           let total_absences = calcTotalFaltas(absences!, base_day)
-          let total_income = +calcTotalSalarioBruto(+employee.salary, total_overtime!, total_absences, +backpay!, +bonus, +employee.subsidy!).toFixed(2)
+          let total_income = +calcTotalSalarioBruto(+employee.salary, total_overtime!, total_absences, +backpay!, +bonus, 
+                              +employee.subsidy!, +employee.subsidy_transport, +employee.subsidy_food, +employee.subsidy_residence, 
+                              +employee.subsidy_medical, +employee.subsidy_vacation, +employee.salary_thirteenth).toFixed(2)
           let IRPS = retornarIRPS(+total_income!, employee.dependents) 
           let INSS_Employee = retornarINSS(+total_income!, employee.inss_status)
           let INSS_Company = retornarINSS_Company(total_income)
@@ -119,7 +128,7 @@ class CreatePayrollEmployeeUseCase {
           // console.log(parseFloat(employee.salary).toFixed(2))
           
          let employeePayroll: ICreatePayrollEmployeeDTO = {
-            payroll_id: payroll_id,
+            payroll_id: payrollCreated.id, //payroll_id ?? payrollCreated.id,
             employee_id: employee.id,
             company_id: user.company_id,
             employee_name: employee.name,
@@ -250,7 +259,7 @@ function retornarPayrollDemo(salary_base: number,  overtime50?: number,
   overtime100 = calcTotalHoraExtra100(hourSalary, overtime100!)
   totalAbsences = calcTotalFaltas(totalAbsences!, daySalary)
   cash_advances = cash_advances
-  let totalSalario = +calcTotalSalarioBruto(salary_base, overtime100 + overtime50 , totalAbsences, backpay!, bonus!, 0).toFixed(2)
+  let totalSalario = +calcTotalSalarioBruto(salary_base, overtime100 + overtime50 , totalAbsences, backpay!, bonus!, 0, 0, 0, 0, 0, 0, 0).toFixed(2)
   salary_liquid = calcularSalario(totalSalario, IRPS!)
   backpay = backpay
   bonus = bonus
@@ -453,9 +462,12 @@ function calcTotalFaltas(faltas: number, salarioEmDias: number) {
 }
 
 function calcTotalSalarioBruto(salario_base: number, totalHorasExtras: number,
-   totalDescontoFaltas: number, totalRetroativos: number, bonus: number, subsidio: number) {
+   totalDescontoFaltas: number, totalRetroativos: number, bonus: number, subsidio: number,
+   subsidio_transporte: number, subsidio_alimentacao: number, subsidio_residencia: number, subsidio_medico: number,
+  subsidio_ferias: number, salario_decimo_terceiro: number,) {
     
-  return salario_base + totalHorasExtras - totalDescontoFaltas + totalRetroativos + bonus + subsidio;
+  return salario_base + totalHorasExtras - totalDescontoFaltas + totalRetroativos + bonus + subsidio + 
+  subsidio_transporte + subsidio_alimentacao + subsidio_residencia + subsidio_medico + subsidio_ferias + salario_decimo_terceiro;
 }
 
 function calcularSalarioLiquido(totalSalario: number, IRPS: number, INSS_Employee: number, totalAdiantamento: number, syndicate_employee: number) {

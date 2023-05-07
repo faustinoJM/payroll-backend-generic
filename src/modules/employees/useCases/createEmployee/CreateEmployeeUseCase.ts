@@ -31,6 +31,12 @@ class CreateEmployeeUseCase {
 
         data.subsidy = data.subsidy ?? 0 as any;
         data.vacation = data.vacation ?? 0 as any;
+        data.subsidy_transport = data.subsidy_transport ?? 0 as any
+        data.subsidy_food = data.subsidy_food ?? 0 as any
+        data.subsidy_vacation = data.subsidy_vacation ?? 0 as any
+        data.subsidy_medical = data.subsidy_medical ?? 0 as any
+        data.subsidy_residence = data.subsidy_residence ?? 0 as any
+        data.salary_thirteenth = data.salary_thirteenth ?? 0 as any
         data.company_id = user.company_id;
         data.inss_status = data.inss_status ?? "true";
         data.syndicate_status = data.syndicate_status ?? "false";

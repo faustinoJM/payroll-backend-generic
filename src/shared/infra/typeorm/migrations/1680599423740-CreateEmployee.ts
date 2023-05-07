@@ -71,6 +71,11 @@ export class CreateEmployee1680599423740 implements MigrationInterface {
             isNullable: true
           },
           {
+            name: "street",
+            type: "varchar",
+            isNullable: true
+          },
+          {
             name: "contact",
             type: "bigint",
             isNullable: true
@@ -102,32 +107,32 @@ export class CreateEmployee1680599423740 implements MigrationInterface {
           },
           {
             name: "subsidy_transport",
-            type: "varchar",
+            type: "double precision",
             isNullable: true,
           },
           {
             name: "subsidy_food",
-            type: "varchar",
+            type: "double precision",
             isNullable: true,
           },
           {
             name: "subsidy_residence",
-            type: "varchar",
+            type: "double precision",
             isNullable: true,
           },
           {
             name: "subsidy_medical",
-            type: "varchar",
+            type: "double precision",
             isNullable: true,
           },
           {
             name: "subsidy_vacation",
-            type: "varchar",
+            type: "double precision",
             isNullable: true,
           }, 
           {
             name: "salary_thirteenth",
-            type: "varchar",
+            type: "double precision",
             isNullable: true,
           },
           {

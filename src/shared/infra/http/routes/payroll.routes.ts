@@ -32,7 +32,7 @@ payrollRouter.post("/", createPayrollController.handle);
 // payrollRouter.get("/input", listInputPayrollController.handle);
 payrollRouter.get("/:id", singlePayrollController.handle);
 // payrollRouter.put("/:id", inputPayrollController.handle);
-payrollRouter.delete("/", deletePayrollController.handle)
+payrollRouter.delete("/:id", deletePayrollController.handle)
 payrollRouter.post("/excel/import", importExcelController.handle)
 
 

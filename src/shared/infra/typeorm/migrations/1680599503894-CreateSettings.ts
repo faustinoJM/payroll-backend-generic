@@ -52,6 +52,15 @@ export class CreateSettings1680599503894 implements MigrationInterface {
             isNullable: true,
           },
           {
+            name: "company_address2",
+            type: "varchar",
+            isNullable: true,
+          },{
+            name: "company_street",
+            type: "varchar",
+            isNullable: true,
+          },
+          {
             name: "company_province",
             type: "varchar",
             isNullable: true,
@@ -84,7 +93,8 @@ export class CreateSettings1680599503894 implements MigrationInterface {
           {
             name: 'company_nuit',
             type: 'bigint',
-            isUnique: true
+            // isUnique: true,
+            isNullable: true
           },
           {
             name: "company_bank_name",
@@ -130,37 +140,37 @@ export class CreateSettings1680599503894 implements MigrationInterface {
             type: "varchar",
           },
           {
-            name: "column_overtime_status",
+            name: "column_overtime",
             type: "varchar",
             isNullable: true,
           },
           {
-            name: "column_absences_status",
+            name: "column_absences",
             type: "varchar",
             isNullable: true,
           },
           {
-            name: "column_cash_advances_status",
+            name: "column_cash_advances",
             type: "varchar",
             isNullable: true,
           },
           {
-            name: "column_backpay_status",
+            name: "column_backpay",
             type: "varchar",
             isNullable: true,
           },
           {
-            name: "column_bonus_status",
+            name: "column_bonus",
             type: "varchar",
             isNullable: true,
           },
           {
-            name: "column_subsidy_status",
+            name: "column_subsidy",
             type: "varchar",
             isNullable: true,
           },
           {
-            name: "column_syndicate_status",
+            name: "column_syndicate",
             type: "varchar",
             isNullable: true,
           },

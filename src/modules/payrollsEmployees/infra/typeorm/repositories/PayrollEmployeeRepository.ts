@@ -155,7 +155,7 @@ class PayrollEmployeeRepository implements IPayrollEmployeeRepository {
       return payrolls;
       }
 
-     async findAllByPayroll_Id(payroll_id: string, company_id: string): Promise<PayrollEmployee[] | null> {
+     async findAllByPayroll_Id(payroll_id: string, company_id: string): Promise<PayrollEmployee[] | []> {
         const  payrolls = await this.repository.find({
           where: { payroll_id, company_id}
         })

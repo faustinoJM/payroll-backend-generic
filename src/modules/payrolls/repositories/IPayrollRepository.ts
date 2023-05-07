@@ -10,7 +10,7 @@ interface IPayrollRepository {
     findByYear(year: number, company_id: string): Promise<Payroll | null>;
     findAllByYear(year: number, company_id: string): Promise<Payroll[] | null>;
     findAllByMonth(month: string, company_id: string): Promise<Payroll[] | null>;
-    findAllByYearAndByMonth(year: number, month: string, company_id: string): Promise<Payroll[] | []>;
+    findAllByYearAndByMonth(year: number, month: string, company_id: string): Promise<Payroll| null>;
     delete(id: string): Promise<void>
     deleteAllByYearAndMonth(year: number, month: string, company_id: string): Promise<void>
     list(company_id: string): Promise<Payroll[]>;

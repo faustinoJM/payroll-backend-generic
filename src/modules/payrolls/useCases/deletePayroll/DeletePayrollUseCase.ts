@@ -21,18 +21,23 @@ class DeletePayrollUseCase {
           throw new  AppError("User Auth doesn't Exists")
         }
 
-        const allPayrolls = await this.payrollRepository.findById(id, user.company_id);
+        const payrollExists = await this.payrollRepository.findById(id, user.company_id);
 
-        // const allPayrolls = await this.payrollRepository.findAllByYearAndByMonth(year, month, user.company_id);
-        // console.log(allPayrolls)
-        // if (allPayrolls?.length! <= 0) {
+        if (!payrollExists)
+          throw new AppError("Payroll doesn't exists")
+
+        const payroll = await this.payrollRepository.findById(id, user.company_id);
+
+        // const payroll = await this.payrollRepository.findAllByYearAndByMonth(year, month, user.company_id);
+        // console.log(payroll)
+        // if (payroll?.length! <= 0) {
         //   throw new AppError("Payroll doesn't exists")
         // }
 
         // await this.payrollRepository.deleteAllByYearAndMonth(year, month, user.company_id)
         await this.payrollRepository.delete(id)
 
-        return allPayrolls;
+        return payroll;
     }
 }
 

@@ -20,7 +20,8 @@ export class CreateCompany1680599238468 implements MigrationInterface {
           {
             name: 'company_nuit',
             type: 'bigint',
-            isUnique: true
+            // isUnique: true,
+            isNullable: true
           },
           {
             name: "company_bank_name",
@@ -46,6 +47,15 @@ export class CreateCompany1680599238468 implements MigrationInterface {
             name: 'company_address',
             type: 'varchar',
             isNullable: true
+          },
+          {
+            name: "company_address2",
+            type: "varchar",
+            isNullable: true,
+          },{
+            name: "company_street",
+            type: "varchar",
+            isNullable: true,
           },
           {
             name: 'company_city',
