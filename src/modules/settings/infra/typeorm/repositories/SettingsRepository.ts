@@ -32,6 +32,7 @@ class SettingsRepository implements ISettingRepository {
           company_bank_name,
           company_bank_account,
           company_logo_name,
+          company_logo_title,
           payroll_month_total_workdays,
           payroll_day_total_workhours,
           payroll_syndicate_tax,
@@ -52,6 +53,7 @@ class SettingsRepository implements ISettingRepository {
           column_subsidy_medical,
           column_subsidy_vacation,
           column_salary_thirteenth,
+          language_options,
           flag,
 
     }: ICreateSettingDTO): Promise<Setting> {
@@ -77,6 +79,7 @@ class SettingsRepository implements ISettingRepository {
           company_bank_name,
           company_bank_account,
           company_logo_name,
+          company_logo_title,
           payroll_month_total_workdays,
           payroll_day_total_workhours,
           payroll_syndicate_tax,
@@ -97,6 +100,7 @@ class SettingsRepository implements ISettingRepository {
           column_subsidy_medical,
           column_subsidy_vacation,
           column_salary_thirteenth,
+          language_options,
           flag,
       })
 

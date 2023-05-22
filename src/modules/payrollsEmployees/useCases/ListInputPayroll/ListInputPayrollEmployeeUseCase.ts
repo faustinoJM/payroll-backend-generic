@@ -138,9 +138,14 @@ class ListInputPayrollEmployeeUseCase {
             inss_employee: payroll.inss_employee,
             inss_company: payroll.inss_company,
             syndicate_employee: payroll.syndicate_employee,
-            total_inss: +(payroll.inss_company) + (+payroll.inss_employee) as any,
+            subsidy_transport: payroll.subsidy_transport ?? 0,
+            subsidy_food: payroll.subsidy_food ?? 0,
+            subsidy_residence: payroll.subsidy_residence ?? 0,
+            subsidy_medical: payroll.subsidy_medical ?? 0,
+            subsidy_vacation: payroll.subsidy_vacation ?? 0,
+            salary_thirteenth: payroll.salary_thirteenth ?? 0,
+            total_inss: ((+payroll.inss_company) + (+payroll.inss_employee)) as any,
             created_at: payroll.created_at,
-            
           };
        
           listEmployeesPayrolls.push(employeePayroll)
@@ -150,8 +155,6 @@ class ListInputPayrollEmployeeUseCase {
         })
 
         return listEmployeesPayrolls
-
-        // return payrolls
     }
 }
 export { ListInputPayrollEmployeeUseCase }

@@ -15,7 +15,15 @@ class InputPayrollEmployeeController {
           day_total_workhours,
           cash_advances,
           backpay,
-          bonus } = request.body;
+          bonus,
+          subsidy,
+          subsidy_transport,
+          subsidy_food,
+          subsidy_residence,
+          subsidy_medical,
+          subsidy_vacation,
+          salary_thirteenth,
+          syndicate_employee} = request.body;
           const id = request.params.id;
 
 
@@ -31,7 +39,15 @@ class InputPayrollEmployeeController {
           day_total_workhours,
           cash_advances,
           backpay,
-          bonus })
+          bonus,
+          subsidy,
+          subsidy_transport,
+          subsidy_food,
+          subsidy_residence,
+          subsidy_medical,
+          subsidy_vacation,
+          salary_thirteenth,
+          syndicate_employee})
 
         return response.json(payrolls);
     }

@@ -9,14 +9,14 @@ class UpdateDepartmentUseCase {
   constructor(@inject("DepartmentsRepository")
   private departmentRepository: IDepartmentsRepository) {}
   
-   async execute({id, name}: ICreateDepartmentDTO) {
+   async execute({id, name, description}: ICreateDepartmentDTO) {
     const department = await this.departmentRepository.findById(id as string)
 
     if(!department) {
       throw new AppError("Department doesn't exists")
     }
 
-    await this.departmentRepository.create({id, name})
+    await this.departmentRepository.create({id, name, description})
 
     return department;
   }

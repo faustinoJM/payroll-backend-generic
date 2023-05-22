@@ -11,7 +11,10 @@ class Department {
   company_id: string;
 
   @Column()
-  department_id: number;
+  department_number: number;
+
+  @Column()
+  description: string;
 
   @Column()
   name: string;

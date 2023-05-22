@@ -23,7 +23,7 @@ class CreateDepartmentUseCase {
         private userRepository: IUsersRepository,
         ) {}
 
-    async execute({ name, user_id }: ICreateDepartmentDTO) {
+    async execute({ name, description, user_id }: ICreateDepartmentDTO) {
         const user = await this.userRepository.findById(user_id as any)
 
         if (!user) {
@@ -35,7 +35,7 @@ class CreateDepartmentUseCase {
         if(departmentAlreadyExists) {
             throw new AppError("Department Already Exists");
         }
-        await this.departmentsRepository.create({ name, company_id: user.company_id });
+        await this.departmentsRepository.create({ name, description, company_id: user.company_id });
 
     }
 }

@@ -13,7 +13,7 @@ export class CreatePosition1680599382680 implements MigrationInterface {
             isPrimary: true,
           },
           {
-            name: 'position_id',
+            name: 'position_number',
             type: 'int',
             // isPrimary: true,
             // isGenerated: true,
@@ -27,6 +27,11 @@ export class CreatePosition1680599382680 implements MigrationInterface {
           {
             name: 'name',
             type: 'varchar',
+          },
+          {
+            name: 'description',
+            type: 'varchar',
+            isNullable: true
           },
           {
             name: 'total_employee',

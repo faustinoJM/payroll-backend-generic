@@ -29,6 +29,7 @@ class CreateEmployeeUseCase {
             throw new AppError("Employee Already Exists");
         }
 
+        data.dependents = data.dependents ?? 0
         data.subsidy = data.subsidy ?? 0 as any;
         data.vacation = data.vacation ?? 0 as any;
         data.subsidy_transport = data.subsidy_transport ?? 0 as any

@@ -1,5 +1,7 @@
 import { inject, injectable } from "tsyringe";
+import { IStorageProvider } from "../../../../shared/container/provider/StorageProvider/IStorageProvider";
 import AppError  from "../../../../shared/errors/AppError";
+import { deleteFile } from "../../../../utils/filte";
 import { IUsersRepository } from "../../../accounts/repositories/IUsersRepository";
 import ICreateSettingDTO from "../../dtos/ICreateSettingDTO";
 import ISettingRepository from "../../repositories/ISettingRepository";
@@ -12,7 +14,10 @@ class CreateSettingUseCase {
         private settingRepository: ISettingRepository,
         
         @inject("UsersRepository")
-        private userRepository: IUsersRepository) {}
+        private userRepository: IUsersRepository,
+        
+        @inject("StorageProvider")
+        private storageProvider: IStorageProvider) {}
 
     async execute(data: ICreateSettingDTO) {
         const user  = await this.userRepository.findById(data.user_id as any)
@@ -23,6 +28,21 @@ class CreateSettingUseCase {
         
         const settingAlreadyExists = await this.settingRepository.findById(user.company_id as any);
         
+        if (settingAlreadyExists) {
+          console.log("111124",settingAlreadyExists.company_logo_name)
+        }
+        
+        let file_logo_name = null
+        if (data.company_logo_multer && data.company_logo_multer.length > 0) {
+          if (settingAlreadyExists?.company_logo_name) {
+            await deleteFile(`./tmp/company/${settingAlreadyExists.company_logo_name}`);
+            await this.storageProvider.delete(settingAlreadyExists.company_logo_name, "company")
+            }
+          file_logo_name = await this.storageProvider.save(data.company_logo_multer[0] as any, "company")
+        }
+
+        console.log("Opa", file_logo_name)
+
         if(settingAlreadyExists) {
         // Case settingAlreadyExists update
             await this.settingRepository.create({
@@ -45,7 +65,7 @@ class CreateSettingUseCase {
               company_nuit: data.company_nuit,
               company_bank_name: data.company_bank_name,
               company_bank_account: data.company_bank_account,
-              company_logo_name: data.company_logo_name,
+              company_logo_title: data.company_logo_title,
               payroll_month_total_workdays: data.payroll_month_total_workdays,
               payroll_day_total_workhours: data.payroll_day_total_workhours,
               payroll_syndicate_tax: data.payroll_syndicate_tax,
@@ -66,17 +86,22 @@ class CreateSettingUseCase {
               column_subsidy_medical: data.column_subsidy_medical,
               column_subsidy_vacation: data.column_subsidy_vacation,
               column_salary_thirteenth: data.column_salary_thirteenth,
+              language_options: data.language_options,              
+              flag: data.flag,
+              company_logo_name: file_logo_name ?? settingAlreadyExists.company_logo_name,
               // payroll_inss_employee_tax: data.payroll_inss_employee_tax,
               // payroll_inss_company_tax: data.payroll_inss_company_tax
             });
         } else {
-            // Case Setting doesn't Exists  create new
+            // if Setting doesn't Exists  create new
             data.company_id = user.company_id
             data.payroll_month_total_workdays = data.payroll_month_total_workdays ?? 30
             data.payroll_day_total_workhours = data.payroll_day_total_workhours ?? 8
             data.payroll_syndicate_tax = data.payroll_syndicate_tax ?? 1
             data.payroll_inss_employee_tax = data.payroll_inss_employee_tax ?? 3
             data.payroll_inss_company_tax = data.payroll_inss_company_tax ?? 4
+            data.column_position_name = data.column_position_name ??  "true",
+            data.column_departament_name = data.column_departament_name ?? "true",
             data.column_overtime =  data.column_overtime ??  "true"
             data.column_absences =  data.column_absences ?? "true"
             data.column_cash_advances =  data.column_cash_advances ?? "true"

@@ -9,14 +9,14 @@ class UpdatePositionUseCase {
   constructor(@inject("PositionsRepository")
         private positionRepository: IPositionsRepository) {}
   
-   async execute({id, name}: ICreatePositionDTO) {
+   async execute({id, name, description}: ICreatePositionDTO) {
     const position = await this.positionRepository.findById(id as string)
 
     if(!position) {
       throw new AppError("Position doesn't exists")
     }
 
-    await this.positionRepository.create({id, name})
+    await this.positionRepository.create({id, name, description})
 
     return position;
   }

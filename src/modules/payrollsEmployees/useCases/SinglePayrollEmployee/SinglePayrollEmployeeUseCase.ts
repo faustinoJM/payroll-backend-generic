@@ -16,6 +16,8 @@ interface ICreatePayrollDTO2 {
   dependents?: number;
   position_name?: string;
   departament_name?: string;
+  bank_name?: string;
+  bank_account?: number;
   nib?: number,
   nuit?: number,
   social_security?: number,
@@ -43,6 +45,7 @@ interface ICreatePayrollDTO2 {
   inss?: string;
   inss_employee?: string;
   inss_company?: string;
+  total_inss?: string
   total_income?: string;
   syndicate_employee?: string;
 
@@ -99,6 +102,8 @@ class SinglePayrollEmployeeUseCase {
             dependents: employee.dependents,
             position_name: positionName?.name,
             departament_name: departmentName?.name,
+            bank_name: employee.bank_name,
+            bank_account: employee.bank_account,
             nib: employee.nib,
             nuit: employee.nuit,
             social_security: employee.social_security,
@@ -126,9 +131,10 @@ class SinglePayrollEmployeeUseCase {
             irps: payroll.irps,
             inss_employee: payroll.inss_employee,
             inss_company: payroll.inss_company,
+            total_inss: ((+payroll.inss_employee) + (+payroll.inss_company)) as any,
             syndicate_employee: payroll.syndicate_employee,
-            
           };
+          
         return employeePayroll;
 
       } else {
@@ -168,6 +174,7 @@ class SinglePayrollEmployeeUseCase {
           irps: payroll.irps,
           inss_employee: payroll.inss_employee,
           inss_company: payroll.inss_company,
+          total_inss: payroll.total_inss,
           syndicate_employee: payroll.syndicate_employee,
           
         };

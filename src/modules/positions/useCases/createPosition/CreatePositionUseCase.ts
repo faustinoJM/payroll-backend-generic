@@ -19,7 +19,7 @@ class CreatePositionUseCase {
         @inject("CompanyRepository")
         private companyRepository: ICompanyRepository) {}
 
-    async execute({ user_id, name }: ICreatePositionDTO) {
+    async execute({ user_id, name, description }: ICreatePositionDTO) {
       
       const user = await this.userRepository.findById(user_id as any)
 
@@ -35,7 +35,7 @@ class CreatePositionUseCase {
         }
 
 
-        await this.positionsRepository.create({ name, company_id: user.company_id });
+        await this.positionsRepository.create({ name, description, company_id: user.company_id });
 
     }
 }

@@ -76,13 +76,13 @@ export class CreateEmployee1680599423740 implements MigrationInterface {
             isNullable: true
           },
           {
-            name: "contact",
-            type: "bigint",
+            name: "contact_1",
+            type: "varchar", //"bigint",
             isNullable: true
           },
           {
-            name: "contact2",
-            type: "bigint",
+            name: "contact_2",
+            type: "varchar", //"bigint",
             isNullable: true
           },
           {
@@ -133,16 +133,6 @@ export class CreateEmployee1680599423740 implements MigrationInterface {
           {
             name: "salary_thirteenth",
             type: "double precision",
-            isNullable: true,
-          },
-          {
-            name: "department",
-            type: "varchar",
-            isNullable: true,
-          },
-          {
-            name: "position",
-            type: "varchar",
             isNullable: true,
           },
           {

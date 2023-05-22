@@ -91,6 +91,11 @@ export class CreateSettings1680599503894 implements MigrationInterface {
             isNullable: true,
           },
           {
+            name: "company_logo_title",
+            type: "varchar",
+            isNullable: true,
+          },
+          {
             name: 'company_nuit',
             type: 'bigint',
             // isUnique: true,
@@ -134,10 +139,12 @@ export class CreateSettings1680599503894 implements MigrationInterface {
           {
             name: "column_position_name",
             type: "varchar",
+            isNullable: true,
           },
           {
             name: "column_departament_name",
             type: "varchar",
+            isNullable: true,
           },
           {
             name: "column_overtime",
@@ -201,6 +208,11 @@ export class CreateSettings1680599503894 implements MigrationInterface {
           }, 
           {
             name: "column_salary_thirteenth",
+            type: "varchar",
+            isNullable: true,
+          },
+          {
+            name: "language_options",
             type: "varchar",
             isNullable: true,
           },

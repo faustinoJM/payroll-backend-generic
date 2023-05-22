@@ -45,10 +45,10 @@ class Employee {
     address: string;
 
     @Column()
-    contact: number;
+    contact_1: string;
 
     @Column()
-    contact2: number;
+    contact_2: string;
 
     @Column()
     email: string;

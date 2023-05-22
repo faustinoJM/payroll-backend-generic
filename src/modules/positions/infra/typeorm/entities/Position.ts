@@ -11,11 +11,14 @@ class Position {
   company_id: string;
 
   @Column()
-  position_id: number;
+  position_number: number;
 
   @Column()
   name: string;
-
+  
+  @Column()
+  description: string;
+  
   total_employee: number;
 
   @CreateDateColumn()

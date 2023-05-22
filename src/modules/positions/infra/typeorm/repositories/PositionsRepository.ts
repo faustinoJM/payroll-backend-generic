@@ -12,13 +12,14 @@ class PositionsRepository implements IPositionsRepository {
       this.ormRepository = AppDataSource.getRepository(Position);
   }
   
-  public async create({ id, company_id, position_id, name,  }: ICreatePositionDTO): Promise<Position> {
+  public async create({ id, company_id, position_number, name, description }: ICreatePositionDTO): Promise<Position> {
 
       const position = this.ormRepository.create({
         id,
         company_id,
-        position_id,
+        position_number,
         name,
+        description
         
       })
 

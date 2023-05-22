@@ -12,13 +12,14 @@ class DepartmentsRepository implements IDepartmentsRepository {
       this.ormRepository = AppDataSource.getRepository(Department);
   }
   
-  public async create({ id, company_id, department_id, name }: ICreateDepartmentDTO): Promise<Department> {
+  public async create({ id, company_id, department_number, name, description }: ICreateDepartmentDTO): Promise<Department> {
 
       const appointment = this.ormRepository.create({
         id,
         company_id,
-        department_id,
-        name
+        department_number,
+        name,
+        description
       })
 
       await this.ormRepository.save(appointment);

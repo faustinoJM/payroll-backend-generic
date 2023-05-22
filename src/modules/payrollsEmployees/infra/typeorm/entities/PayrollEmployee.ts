@@ -48,6 +48,12 @@ class PayrollEmployee {
     departament_name: string;
 
     @Column()
+    bank_name: string;
+  
+    @Column()
+    bank_account: number;
+
+    @Column()
     nib: number;
 
     @Column()
@@ -114,6 +120,9 @@ class PayrollEmployee {
     salary_thirteenth: string;
 
     @Column()
+    syndicate_employee: string;
+
+    @Column()
     irps: string;
 
     @Column()
@@ -123,10 +132,10 @@ class PayrollEmployee {
     inss_company: string;
 
     @Column()
-    total_income: string;
+    total_inss: string;
 
     @Column()
-    syndicate_employee: string;
+    total_income: string;
 
     @CreateDateColumn()
     created_at: Date

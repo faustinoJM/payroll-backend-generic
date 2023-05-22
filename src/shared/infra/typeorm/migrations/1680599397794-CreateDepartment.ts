@@ -13,7 +13,7 @@ export class CreateDepartment1680599397794 implements MigrationInterface {
             isPrimary: true,
           },
           {
-            name: 'department_id',
+            name: 'department_number',
             type: 'int',
             // isPrimary: true,
             // isGenerated: true,
@@ -27,6 +27,11 @@ export class CreateDepartment1680599397794 implements MigrationInterface {
           {
             name: 'name',
             type: 'varchar',
+          },
+          {
+            name: 'description',
+            type: 'varchar',
+            isNullable: true
           },
           {
             name: 'total_employee',

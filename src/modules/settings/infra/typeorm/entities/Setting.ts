@@ -64,6 +64,9 @@ class Setting {
   company_logo_name: string;
 
   @Column()
+  company_logo_title?: string;
+
+  @Column()
   payroll_month_total_workdays: number;
   
   @Column()
@@ -79,49 +82,52 @@ class Setting {
   payroll_inss_company_tax: number;
 
   @Column()
-  column_position_name?: string
+  column_position_name: string
 
   @Column()
-  column_departament_name?: string
+  column_departament_name: string
 
   @Column()
-  column_overtime?: string
+  column_overtime: string
 
   @Column()
-  column_absences?: string
+  column_absences: string
 
   @Column()
-  column_cash_advances?: string
+  column_cash_advances: string
 
   @Column()
-  column_backpay?: string
+  column_backpay: string
 
   @Column()
-  column_bonus?: string
+  column_bonus: string
 
   @Column()
-  column_subsidy?: string
+  column_subsidy: string
 
   @Column()
-  column_syndicate?: string
+  column_syndicate: string
 
   @Column()
-  column_subsidy_transport?: string
+  column_subsidy_transport: string
 
   @Column()
-  column_subsidy_food?: string
+  column_subsidy_food: string
 
   @Column()
-  column_subsidy_residence?: string
+  column_subsidy_residence: string
 
   @Column()
-  column_subsidy_medical?: string
+  column_subsidy_medical: string
 
   @Column()
-  column_subsidy_vacation?: string
+  column_subsidy_vacation: string
 
   @Column()
-  column_salary_thirteenth?: string
+  column_salary_thirteenth: string
+
+  @Column()
+  language_options: string
 
   @Column()
   flag: number;

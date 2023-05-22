@@ -83,11 +83,15 @@ class ListPayrollEmployeeUseCase {
         //   throw new AppError("Payroll doesn't exists")
         // }
         
-        // const singlePayrolls = await this.payrollEmployeeRepository.findAllByPayroll_Id(payroll.id, user.company_id);
-        const singlePayrolls = await this.payrollEmployeeRepository.list(user.company_id);
+        // const Payrolls = await this.payrollEmployeeRepository.findAllByPayroll_Id(payroll.id, user.company_id);
+        const payrolls = await this.payrollEmployeeRepository.list(user.company_id);
+
+        // payrolls.map((payroll) => {
+        //   payroll.total_inss =  (+payroll.inss_company) + (+payroll.inss_employee)
+        // })
 
 
-        return singlePayrolls;
+        return payrolls;
 
     }
 }

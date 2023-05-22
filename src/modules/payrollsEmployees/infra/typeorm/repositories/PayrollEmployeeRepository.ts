@@ -21,9 +21,6 @@ class PayrollEmployeeRepository implements IPayrollEmployeeRepository {
       dependents,
       position_name,
       departament_name,
-      nib,
-      social_security,
-      nuit,
       salary_base,
       salary_liquid,
       month,
@@ -50,21 +47,25 @@ class PayrollEmployeeRepository implements IPayrollEmployeeRepository {
       irps,
       inss_employee,
       inss_company,
+      total_inss,
       total_income,
-      syndicate_employee}: ICreatePayrollEmployeeDTO): Promise<void> {
-        const payroll =  this.repository.create({
+      syndicate_employee,
+      bank_name,
+      bank_account,
+      nib,
+      social_security,
+      nuit,}: ICreatePayrollEmployeeDTO): Promise<void> {
+
+      const payroll =  this.repository.create({
           id,
           company_id,
           employee_id,
           payroll_id,
           employee_number,
+          dependents,
           employee_name,
           position_name,
-          dependents,
           departament_name,
-          nib,
-          social_security,
-          nuit,
           salary_base,
           salary_liquid,
           month,
@@ -91,8 +92,14 @@ class PayrollEmployeeRepository implements IPayrollEmployeeRepository {
           irps,
           inss_employee,
           inss_company,
+          total_inss,
           total_income,
-          syndicate_employee
+          syndicate_employee,
+          bank_name,
+          bank_account,
+          nib,
+          social_security,
+          nuit,
         });
         
         await this.repository.save(payroll);

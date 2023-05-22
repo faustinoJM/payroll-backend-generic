@@ -13,8 +13,8 @@ interface ICreateEmployeeDTO {
   marital_status?: string;
   gender?: string;
   address?: string;
-  contact?:  number;
-  contact2?: number;
+  contact_1?:  string;
+  contact_2?: string;
   email?: string;
   nuit?: number;
   vacation?: number;

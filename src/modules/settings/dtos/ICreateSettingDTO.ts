@@ -20,6 +20,7 @@ export default interface ICreateSettingDTO {
   company_bank_name?: string;
   company_bank_account?: string;
   company_logo_name?: string;
+  company_logo_title?: string;
   payroll_month_total_workdays?: number;
   payroll_day_total_workhours?: number;
   payroll_syndicate_tax?: number;
@@ -40,6 +41,9 @@ export default interface ICreateSettingDTO {
   column_subsidy_medical?: string
   column_subsidy_vacation?: string
   column_salary_thirteenth?: string
+  language_options?: string;
   flag?: number;
+  company_logo_multer?: string[];
+  CompanyLogoURL?: string;
 
 }

@@ -57,21 +57,6 @@ export class CreatePayrollEmployee1682353956401 implements MigrationInterface {
             type: "varchar",
           },
           {
-            name: "nib",
-            type: "bigint",
-            isNullable: true
-          },
-          {
-            name: "social_security",
-            type: "bigint",
-            isNullable: true
-          },
-          {
-            name: "nuit",
-            type: "bigint",
-            isNullable: true
-          },
-          {
             name: "salary_base",
             type: "double precision",
           },
@@ -122,52 +107,52 @@ export class CreatePayrollEmployee1682353956401 implements MigrationInterface {
           {
             name: "cash_advances",
             type: "double precision",
-            isNullable: true,
+            // isNullable: true,
           },
           {
             name: "backpay",
             type: "double precision",
-            isNullable: true,
-          },
-          {
-            name: "subsidy",
-            type: "double precision",
-            isNullable: true,
+            // isNullable: true,
           },
           {
             name: "bonus",
             type: "double precision",
-            isNullable: true,
+            // isNullable: true,
+          },
+          {
+            name: "subsidy",
+            type: "double precision",
+            // isNullable: true,
           },
           {
             name: "subsidy_transport",
             type: "double precision",
-            isNullable: true,
+            // isNullable: true,
           },
           {
             name: "subsidy_food",
             type: "double precision",
-            isNullable: true,
+            // isNullable: true,
           },
           {
             name: "subsidy_residence",
             type: "double precision",
-            isNullable: true,
+            // isNullable: true,
           },
           {
             name: "subsidy_medical",
             type: "double precision",
-            isNullable: true,
+            // isNullable: true,
           }, 
           {
             name: "subsidy_vacation",
             type: "double precision",
-            isNullable: true,
+            // isNullable: true,
           }, 
           {
             name: "salary_thirteenth",
             type: "double precision",
-            isNullable: true,
+            // isNullable: true,
           },
           {
             name: "irps",
@@ -182,9 +167,38 @@ export class CreatePayrollEmployee1682353956401 implements MigrationInterface {
             type: "double precision",
           },
           {
+            name: "total_inss",
+            type: "double precision",
+          },
+          {
             name: "syndicate_employee",
             type: "double precision",
-            isNullable: true,
+            // isNullable: true,
+          },
+          {
+            name: "bank_name",
+            type: "varchar",
+            isNullable: true
+          },
+          {
+            name: "bank_account",
+            type: "bigint",
+            isNullable: true
+          },
+          {
+            name: "nib",
+            type: "bigint",
+            isNullable: true
+          },
+          {
+            name: "social_security",
+            type: "bigint",
+            isNullable: true
+          },
+          {
+            name: "nuit",
+            type: "bigint",
+            isNullable: true
           },
           {
             name: 'created_at',

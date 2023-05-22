@@ -110,6 +110,8 @@ class OutputPayrollEmployeeUseCase {
             dependents: employee.dependents,
             position_name: positionName(employee.position_id!)?.name,
             departament_name: departmentName(employee.department_id!)?.name,
+            bank_name: employee.bank_name,
+            bank_account: employee.bank_account,
             nib: employee.nib,
             social_security: employee.social_security,
             nuit: employee.nuit,
@@ -152,6 +154,8 @@ class OutputPayrollEmployeeUseCase {
               dependents: payroll.dependents,
               position_name: payroll.position_name,
               departament_name: payroll.departament_name,
+              bank_name: payroll.bank_name,
+              bank_account: payroll.bank_account,
               nib: payroll.nib,
               social_security: payroll.social_security,
               nuit: payroll.nuit,
@@ -176,7 +180,7 @@ class OutputPayrollEmployeeUseCase {
               irps: payroll.irps,
               inss_employee: payroll.inss_employee,
               inss_company: payroll.inss_company,
-              total_inss: +(payroll.inss_company) + (+payroll.inss_employee) as any,
+              total_inss: ((+payroll.inss_company) + (+payroll.inss_employee)) as any,
               syndicate_employee: payroll.syndicate_employee,
               
             }

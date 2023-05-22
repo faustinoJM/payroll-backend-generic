@@ -10,6 +10,8 @@ interface ICreatePayrollEmployeeDTO {
   dependents?: number;
   position_name?: string;
   departament_name?: string;
+  bank_name?: string;
+  bank_account?: number;
   nib?: number;
   social_security?: number;
   nuit?: number;
@@ -40,7 +42,7 @@ interface ICreatePayrollEmployeeDTO {
   inss_employee?: string;
   inss_company?: string;
   total_income?: string;
-  total_inss?: number
+  total_inss?: string;
   user_id?: string;
   company_id?: string;
   total_salary_liquid?: string
