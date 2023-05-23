@@ -15,7 +15,7 @@ interface ICreatePayrollDTO2 {
   employee_name?: string;
   dependents?: number;
   position_name?: string;
-  departament_name?: string;
+  department_name?: string;
   nib?: number,
   nuit?: number,
   social_security?: number,
@@ -259,8 +259,8 @@ const keyToPropMap = {
   "Estado Civil": "marital_status",
   "Sexo": "gender",
   "Residencia": "address",
-  "Contacto1": "contact",
-  "Contacto2": "contact2",
+  "Contacto1": "contact_1",
+  "Contacto2": "contact_2",
   "Email": "email",
   "NUIT": "nuit",
   "Subsidio": "subsidy",

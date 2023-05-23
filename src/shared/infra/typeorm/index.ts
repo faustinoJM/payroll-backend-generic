@@ -12,11 +12,12 @@ import Setting from "../../../modules/settings/infra/typeorm/entities/Setting"
 
 const options:  any = {
     type: "postgres",
-    host: "localhost",
-    port: 5432,
-    username: "postgres",
-    password: "12345",
-    database: "payroll_single5",
+    // host: "localhost",
+    // port: 5432,
+    // username: "postgres",
+    // password: "12345",
+    // database: "payroll_single5",
+    url: "postgres://elintpayrolladmin_user:NFDPTaRznVQ65Y8YGlqxHGO5HOxB34is@dpg-chjnj1bhp8u4bds0sc90-a.oregon-postgres.render.com/elintpayrolladmin?ssl=true",
     // url: "postgres://postgres:12345678@db-payroll-elint.c8tujfcgxu52.us-east-1.rds.amazonaws.com/payroll_elint_systems",
     // url: "postgres://jhkdfoxm:q_zM2AjeX07zyuWXgCpRLLEMxnX3b-v0@raja.db.elephantsql.com/jhkdfoxm",
     // url: "postgres://elint:uYQvjaysQl0dhEvkcUj8Gxe1p8jsMTLD@dpg-cgj809mbb6mo06k1h0rg-a.oregon-postgres.render.com/payroll_render?ssl=true",

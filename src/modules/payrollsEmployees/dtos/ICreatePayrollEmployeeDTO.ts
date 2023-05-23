@@ -9,7 +9,7 @@ interface ICreatePayrollEmployeeDTO {
   employee_name?: string;
   dependents?: number;
   position_name?: string;
-  departament_name?: string;
+  department_name?: string;
   bank_name?: string;
   bank_account?: number;
   nib?: number;
@@ -23,7 +23,7 @@ interface ICreatePayrollEmployeeDTO {
   overtime100?: number;
   total_overtime?: string;
   month_total_workdays?: number;
-  day_total_workhours?: number;
+  day_total_workhours?: string;
   base_day?: string;
   base_hour?: string;
   absences?: number;

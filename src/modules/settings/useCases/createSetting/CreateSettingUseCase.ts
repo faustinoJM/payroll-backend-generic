@@ -55,7 +55,7 @@ class CreateSettingUseCase {
               company_website: data.company_website,
               company_fax: data.company_fax,
               company_address: data.company_address,
-              company_address2: data.company_address2,
+              company_address_2: data.company_address_2,
               company_street: data.company_street,
               company_province: data.company_province,
               company_city: data.company_city,
@@ -72,7 +72,7 @@ class CreateSettingUseCase {
               payroll_inss_employee_tax: data.payroll_inss_employee_tax,
               payroll_inss_company_tax: data.payroll_inss_company_tax,
               column_position_name: data.column_position_name,
-              column_departament_name: data.column_departament_name,
+              column_department_name: data.column_department_name,
               column_overtime: data.column_overtime,
               column_absences: data.column_absences,
               column_cash_advances: data.column_cash_advances,
@@ -96,12 +96,12 @@ class CreateSettingUseCase {
             // if Setting doesn't Exists  create new
             data.company_id = user.company_id
             data.payroll_month_total_workdays = data.payroll_month_total_workdays ?? 30
-            data.payroll_day_total_workhours = data.payroll_day_total_workhours ?? 8
+            data.payroll_day_total_workhours = data.payroll_day_total_workhours as any ?? 8
             data.payroll_syndicate_tax = data.payroll_syndicate_tax ?? 1
             data.payroll_inss_employee_tax = data.payroll_inss_employee_tax ?? 3
             data.payroll_inss_company_tax = data.payroll_inss_company_tax ?? 4
             data.column_position_name = data.column_position_name ??  "true",
-            data.column_departament_name = data.column_departament_name ?? "true",
+            data.column_department_name = data.column_department_name ?? "true",
             data.column_overtime =  data.column_overtime ??  "true"
             data.column_absences =  data.column_absences ?? "true"
             data.column_cash_advances =  data.column_cash_advances ?? "true"

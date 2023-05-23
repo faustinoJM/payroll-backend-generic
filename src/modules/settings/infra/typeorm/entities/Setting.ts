@@ -31,7 +31,7 @@ class Setting {
   company_address: string;
 
   @Column()
-  company_address2: string;
+  company_address_2: string;
 
   @Column()
   company_street: string;
@@ -70,7 +70,7 @@ class Setting {
   payroll_month_total_workdays: number;
   
   @Column()
-  payroll_day_total_workhours: number;
+  payroll_day_total_workhours: string;
 
   @Column()
   payroll_syndicate_tax: number;
@@ -85,7 +85,7 @@ class Setting {
   column_position_name: string
 
   @Column()
-  column_departament_name: string
+  column_department_name: string
 
   @Column()
   column_overtime: string
@@ -137,6 +137,14 @@ class Setting {
 
   @UpdateDateColumn()
   updated_at: Date;
+
+  companyLogoURL: string;
+
+  getCompanyLogoURL(): string {
+    // return `http://localhost:3333/companyy-logo/${this.company_logo_name}`
+    return `https://generic-render-production.up.railway.app/companyy-logo/${this.company_logo_name}`
+    // return `https://elint-payroll-images.s3.us-east-1.amazonaws.com/company/${this.company_logo_name}`
+  }
 
   constructor() {
     this.id = uuidv4();

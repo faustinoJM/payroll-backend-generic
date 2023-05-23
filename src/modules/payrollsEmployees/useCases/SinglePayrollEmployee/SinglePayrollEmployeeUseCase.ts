@@ -15,7 +15,7 @@ interface ICreatePayrollDTO2 {
   employee_name?: string;
   dependents?: number;
   position_name?: string;
-  departament_name?: string;
+  department_name?: string;
   bank_name?: string;
   bank_account?: number;
   nib?: number,
@@ -101,7 +101,7 @@ class SinglePayrollEmployeeUseCase {
             employee_name: employee.name,
             dependents: employee.dependents,
             position_name: positionName?.name,
-            departament_name: departmentName?.name,
+            department_name: departmentName?.name,
             bank_name: employee.bank_name,
             bank_account: employee.bank_account,
             nib: employee.nib,
@@ -118,8 +118,8 @@ class SinglePayrollEmployeeUseCase {
             overtime100: payroll.overtime100,
             totalOvertime100: payroll.overtime100 * (+payroll.base_hour) * 2,
             total_overtime: payroll.total_overtime,
-            month_total_workdays: payroll.month_total_workdays,
-            day_total_workhours: payroll.day_total_workhours,
+            month_total_workdays: +payroll.month_total_workdays,
+            day_total_workhours: +payroll.day_total_workhours,
             base_day: payroll.base_day,
             base_hour: payroll.base_hour,
             absences: payroll.absences,
@@ -146,7 +146,7 @@ class SinglePayrollEmployeeUseCase {
           employee_name: payroll.employee_name,
           dependents: payroll.dependents,
           position_name: payroll.position_name,
-          departament_name: payroll.departament_name,
+          department_name: payroll.department_name,
           nib: payroll.nib,
           nuit: payroll.nuit,
           social_security: payroll.nuit,
@@ -161,8 +161,8 @@ class SinglePayrollEmployeeUseCase {
           overtime100: payroll.overtime100,
           totalOvertime100: payroll.overtime100 * (+payroll.base_hour) * 2,
           total_overtime: payroll.total_overtime,
-          month_total_workdays: payroll.month_total_workdays,
-          day_total_workhours: payroll.day_total_workhours,
+          month_total_workdays: +payroll.month_total_workdays,
+          day_total_workhours: +payroll.day_total_workhours,
           base_day: payroll.base_day,
           base_hour: payroll.base_hour,
           absences: payroll.absences,

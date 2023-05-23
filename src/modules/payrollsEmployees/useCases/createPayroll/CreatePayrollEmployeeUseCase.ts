@@ -113,8 +113,8 @@ class CreatePayrollEmployeeUseCase {
         }
 
         employees.map((employee) =>{
-          let base_day = +calcSalarioEmDias(month_total_workdays!, +employee.salary).toFixed(2)
-          let base_hour = +calcSalarioPorHora(base_day, day_total_workhours!).toFixed(2)
+          let base_day = +calcSalarioEmDias(+month_total_workdays!, +employee.salary).toFixed(2)
+          let base_hour = +calcSalarioPorHora(base_day, +day_total_workhours!).toFixed(2)
           let total_overtime = calcTotalHorasExtras(base_hour, overtime50!, overtime100!)
           let total_absences = calcTotalFaltas(absences!, base_day)
           let total_subsidio = ((+employee.subsidy)! + (+employee.subsidy_transport) + (+employee.subsidy_food) + (+employee.subsidy_residence) + 
@@ -133,7 +133,7 @@ class CreatePayrollEmployeeUseCase {
             employee_name: employee.name,
             dependents: employee.dependents,
             position_name: positionName(employee.position_id!)?.name,
-            departament_name: departmentName(employee.department_id!)?.name,
+            department_name: departmentName(employee.department_id!)?.name,
             bank_name: employee.bank_name,
             bank_account: employee.bank_account,
             nib: employee.nib,
@@ -147,8 +147,8 @@ class CreatePayrollEmployeeUseCase {
             overtime50,
             overtime100,
             total_overtime: total_overtime as any,
-            month_total_workdays,
-            day_total_workhours,
+            month_total_workdays: month_total_workdays as any,
+            day_total_workhours: day_total_workhours as any,
             base_day: base_day as any,
             base_hour: base_hour as any,
             absences,
@@ -170,7 +170,7 @@ class CreatePayrollEmployeeUseCase {
             salary_thirteenth: employee.salary_thirteenth ?? 0,
             tabelaSalario: retornarTabela(+total_income!, employee.dependents),
             payrollDemo: retornarPayrollDemo(+employee.salary, overtime50,
-              overtime100, month_total_workdays, day_total_workhours, absences,
+              overtime100, +month_total_workdays, +day_total_workhours, absences,
               +cash_advances!, +backpay!, bonus, +total_income!, +IRPS!, +INSS_Employee!)
 
           };

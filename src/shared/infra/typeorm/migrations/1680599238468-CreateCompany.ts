@@ -49,7 +49,7 @@ export class CreateCompany1680599238468 implements MigrationInterface {
             isNullable: true
           },
           {
-            name: "company_address2",
+            name: "company_address_2",
             type: "varchar",
             isNullable: true,
           },{

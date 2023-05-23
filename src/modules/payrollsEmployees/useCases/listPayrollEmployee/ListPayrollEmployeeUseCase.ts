@@ -14,7 +14,7 @@ interface ICreatePayrollDTO2 {
   employee_name?: string;
   dependents?: number;
   position_name?: string;
-  departament_name?: string;
+  department_name?: string;
   nib?: number,
   nuit?: number,
   social_security?: number,

@@ -45,7 +45,7 @@ class PayrollEmployee {
     position_name: string;
 
     @Column()
-    departament_name: string;
+    department_name: string;
 
     @Column()
     bank_name: string;
@@ -75,7 +75,7 @@ class PayrollEmployee {
     month_total_workdays: number;
 
     @Column()
-    day_total_workhours: number;
+    day_total_workhours: string;
 
     @Column()
     base_day: string;

@@ -113,7 +113,7 @@ class ListInputPayrollEmployeeUseCase {
             employee_name: employee.name,
             dependents: employee.dependents,
             position_name: positionName(employee.position_id!)?.name,
-            departament_name: departmentName(employee.department_id!)?.name,
+            department_name: departmentName(employee.department_id!)?.name,
             nib: employee.nib,
             social_security: employee.social_security,
             salary_base: payroll.salary_base, 

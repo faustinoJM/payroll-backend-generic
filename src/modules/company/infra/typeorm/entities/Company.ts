@@ -19,7 +19,7 @@ class Company {
   company_address: string;
   
   @Column()
-  company_address2: string;
+  company_address_2: string;
 
   @Column()
   company_street: string;

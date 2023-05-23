@@ -65,8 +65,17 @@ class EmployeesRepository implements IEmployeesRepository {
             social_security,
             syndicate_status, inss_status
         });
-        
-        await this.repository.save(user);
+
+        // const employee = await this.findByName(name, bi, company_id as any)
+
+        // if (!employee)
+          await this.repository.save(user);
+        // else {
+          // user.id = employee.id
+          // console.log("178--",employee.id)
+          console.log("179--",user.id)
+          // await this.repository.save(user);
+          // }
     }
     async findByName(name: string, bi: string, company_id: string): Promise<Employee | null> {
         const user = await this.repository.findOne({ 
@@ -108,6 +117,64 @@ class EmployeesRepository implements IEmployeesRepository {
 
     async delete(id: string): Promise<void> {
       await this.repository.delete(id)
+    }
+
+    async update({ id, company_id, employee_number, name, dependents, salary, position_id, department_id, birth_date, 
+      place_birth,
+      nationality,
+      bi,
+      marital_status,
+      gender,
+      address,
+      contact_1,
+      contact_2,
+      email,
+      nuit,
+      vacation,
+      subsidy,
+      subsidy_transport,
+      subsidy_food,
+      subsidy_residence,
+      subsidy_medical,
+      subsidy_vacation,
+      salary_thirteenth,
+      start_date,
+      employee_status,
+      bank_name,
+      bank_account,
+      nib,
+      social_security,
+      syndicate_status, inss_status}: ICreateEmployeeDTO): Promise<void> {
+        const user =  this.repository.create({
+            id, company_id, employee_number, name, salary, dependents, position_id, department_id, birth_date,
+            place_birth,
+            nationality,
+            bi,
+            marital_status,
+            gender,
+            address,
+            contact_1,
+            contact_2,
+            email,
+            nuit,
+            vacation,
+            subsidy,
+            subsidy_transport,
+            subsidy_food,
+            subsidy_residence,
+            subsidy_medical,
+            subsidy_vacation,
+            salary_thirteenth,
+            start_date,
+            employee_status,
+            bank_name,
+            bank_account,
+            nib,
+            social_security,
+            syndicate_status, inss_status
+        });
+
+        await this.repository.save(user);
     }
 
 }

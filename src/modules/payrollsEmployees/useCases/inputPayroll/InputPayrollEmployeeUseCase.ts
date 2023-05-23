@@ -41,7 +41,7 @@ interface IRequestList {
   name?: string;
   dependents?: number;
   positionName?: string | null;
-  departamentsName?: string | null;
+  departmentsName?: string | null;
   salary_base?: number | string;
   salary_liquid?: number | string;
   month?: string;
@@ -150,7 +150,7 @@ class InputPayrollEmployeeUseCase {
         else 
           bonus = +payrollEmployee.bonus
 
-        subsidy! >= 0 ? subsidy = subsidy : payrollEmployee.subsidy;
+        subsidy! >= 0 ? subsidy = subsidy : subsidy = +payrollEmployee.subsidy;
         subsidy_transport! >= 0 ? subsidy_transport = subsidy_transport : subsidy_transport = +payrollEmployee.subsidy_transport;
         subsidy_food! >= 0 ? subsidy_food = subsidy_food : subsidy_food = +payrollEmployee.subsidy_food;
         subsidy_residence! >= 0 ? subsidy_residence = subsidy_residence : subsidy_residence = +payrollEmployee.subsidy_residence;
@@ -176,8 +176,8 @@ class InputPayrollEmployeeUseCase {
           // console.log(employee)
         if(employee) {
 
-          let base_day = calcSalarioEmDias(payrollEmployee.month_total_workdays, +employee.salary)
-          let base_hour = calcSalarioPorHora(base_day, payrollEmployee.day_total_workhours)
+          let base_day = calcSalarioEmDias(+payrollEmployee.month_total_workdays, +employee.salary)
+          let base_hour = calcSalarioPorHora(base_day, +payrollEmployee.day_total_workhours)
           let total_overtime = calcTotalHorasExtras(base_hour, overtime50!, overtime100!)
           let total_absences = calcTotalFaltas(absences!, base_day)
           let total_subsidy = (+subsidy!) + (+subsidy_transport!) + (+subsidy_food!) + (+subsidy_residence!) + (+subsidy_medical!) + (+subsidy_vacation!)
@@ -195,7 +195,7 @@ class InputPayrollEmployeeUseCase {
             employee_name: employee.name,
             dependents: employee.dependents,
             position_name: positionName(employee.position_id!)?.name,
-            departament_name: departmentName(employee.department_id!)?.name,
+            department_name: departmentName(employee.department_id!)?.name,
             nib: employee.nib,
             social_security: employee.social_security,
             nuit: employee.nuit,
@@ -214,7 +214,7 @@ class InputPayrollEmployeeUseCase {
             absences,
             total_absences: total_absences as any,
             cash_advances: cash_advances as any,
-            subsidy: employee.subsidy,
+            subsidy: subsidy as any,
             bonus: bonus as any,
             backpay: backpay as any,
             irps: IRPS as any,
@@ -229,7 +229,7 @@ class InputPayrollEmployeeUseCase {
             salary_thirteenth: salary_thirteenth as any,
             tabelaSalario: retornarTabela(+total_income!, employee.dependents),
             payrollDemo: retornarPayrollDemo(+employee.salary, overtime50,
-              overtime100, payrollEmployee.month_total_workdays, payrollEmployee.day_total_workhours, absences,
+              overtime100, +payrollEmployee.month_total_workdays, +payrollEmployee.day_total_workhours, absences,
               +cash_advances!, +backpay!, +employee.subsidy, +bonus!, +total_income!, +IRPS!, +INSS_Employee!)
 
           };

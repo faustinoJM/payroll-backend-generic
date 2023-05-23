@@ -5,7 +5,7 @@ interface IListPayroll {
   name?: string;
   dependents?: number;
   positionName?: string | null;
-  departamentsName?: string | null;
+  departmentsName?: string | null;
   salary_base?: number | string;
   salary_liquid?: number | string;
   month?: number;

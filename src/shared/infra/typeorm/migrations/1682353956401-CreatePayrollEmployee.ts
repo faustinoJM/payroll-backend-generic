@@ -53,7 +53,7 @@ export class CreatePayrollEmployee1682353956401 implements MigrationInterface {
             type: "varchar",
           },
           {
-            name: "departament_name",
+            name: "department_name",
             type: "varchar",
           },
           {
@@ -86,7 +86,7 @@ export class CreatePayrollEmployee1682353956401 implements MigrationInterface {
           },
           {
             name: "day_total_workhours",
-            type: "int",
+            type: "double precision",
           },
           {
             name: "base_day",

@@ -22,6 +22,9 @@ class ListSettingUseCase {
           throw new AppError("User Auth doesn't Exists")
         }
         const settings = await this.settingsRepository.list(user.company_id);
+        
+        if (settings)
+        settings.companyLogoURL = settings.getCompanyLogoURL()
   
         return settings;
 

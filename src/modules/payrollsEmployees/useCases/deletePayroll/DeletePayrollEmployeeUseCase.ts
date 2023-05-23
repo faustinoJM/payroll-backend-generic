@@ -21,13 +21,13 @@ class DeletePayrollEmployeeUseCase {
           throw new  AppError("User Auth doesn't Exists")
         }
 
-        const allPayrolls = await this.payrollRepository.findAllByYearAndByMonth(year, month, user.company_id);
+        const allPayrolls = await this.payrollRepository.findAllByPayroll_Id(payroll_id, user.company_id);
         console.log(allPayrolls)
         if (allPayrolls?.length! <= 0) {
           throw new AppError("Payroll doesn't exists")
         }
 
-        await this.payrollRepository.deleteAllByYearAndMonth(year, month, user.company_id)
+        await this.payrollRepository.deleteByPayroll_Id(payroll_id, user.company_id)
 
         return allPayrolls;
     }

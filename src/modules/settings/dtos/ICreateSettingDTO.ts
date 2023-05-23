@@ -9,7 +9,7 @@ export default interface ICreateSettingDTO {
   company_website?: string;
   company_fax?: string;
   company_address?: string;
-  company_address2?: string;
+  company_address_2?: string;
   company_street?: string;
   company_province?: string;
   company_city?: string;
@@ -22,12 +22,12 @@ export default interface ICreateSettingDTO {
   company_logo_name?: string;
   company_logo_title?: string;
   payroll_month_total_workdays?: number;
-  payroll_day_total_workhours?: number;
+  payroll_day_total_workhours?: string;
   payroll_syndicate_tax?: number;
   payroll_inss_employee_tax?: number,
   payroll_inss_company_tax?: number,
   column_position_name?: string
-  column_departament_name?: string
+  column_department_name?: string
   column_overtime?: string
   column_absences?: string
   column_cash_advances?: string

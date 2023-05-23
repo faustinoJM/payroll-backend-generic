@@ -52,7 +52,7 @@ export class CreateSettings1680599503894 implements MigrationInterface {
             isNullable: true,
           },
           {
-            name: "company_address2",
+            name: "company_address_2",
             type: "varchar",
             isNullable: true,
           },{
@@ -118,7 +118,7 @@ export class CreateSettings1680599503894 implements MigrationInterface {
           },
           {
             name: "payroll_day_total_workhours",
-            type: "int",
+            type: "double precision",
             isNullable: true,
           },
           {
@@ -142,7 +142,7 @@ export class CreateSettings1680599503894 implements MigrationInterface {
             isNullable: true,
           },
           {
-            name: "column_departament_name",
+            name: "column_department_name",
             type: "varchar",
             isNullable: true,
           },

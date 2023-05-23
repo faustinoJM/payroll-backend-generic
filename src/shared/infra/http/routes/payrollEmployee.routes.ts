@@ -28,7 +28,8 @@ payrollEmployeeRouter.use(ensureAuthenticated)
 payrollEmployeeRouter.post("/", createPayrollController.handle);
 payrollEmployeeRouter.get("/", listPayrollEmployeeController.handle);
 payrollEmployeeRouter.get("/output/:id", outputPayrollController.handle);
-payrollEmployeeRouter.get("/input/:id", listInputPayrollController.handle);
+payrollEmployeeRouter.get("/input", listPayrollEmployeeController.handle);
+// payrollEmployeeRouter.get("/input/:id", listInputPayrollController.handle);
 payrollEmployeeRouter.get("/:id", singlePayrollController.handle);
 payrollEmployeeRouter.put("/:id", inputPayrollController.handle);
 payrollEmployeeRouter.delete("/", deletePayrollController.handle)
